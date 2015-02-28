@@ -1,0 +1,101 @@
+\documentclass{homework}
+
+% Include any special packages you might use.  Uncomment the
+% following to use Times as the default font instead of
+% TeX's default font of Computer Modern.
+\usepackage{times,txfonts}
+\usepackage{amsmath}
+\usepackage{multicol}
+
+% The following commands set up the material that appears
+% in the header.
+\doclabel{Math 651: Homework 3, Problem \#3 Redo}
+\docauthor{Kirk Hogenson}
+\docdate{}
+
+\setlength\parindent{0pt}
+\setlength\parskip{12pt}
+\setlength\textheight{10in}
+
+% I've provided a file (hwextras.tex) with some commonly used extra 
+% commands. If you've downloaded it, you can include it in your document
+% by uncommenting the line below.  Feel free to make changes to that file.
+\input{hwextras.tex}
+
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\calA}{\mathcal{A}}
+\newcommand{\calB}{\mathcal{B}}
+\DeclareMathOperator{\Int}{\mathrm{Int}}
+\begin{document}
+\begin{exercise}{3. Lee, Problem 2-4}
+Let $X$ be a topological space and let $\calA$ be a collection of subsets
+of $X$.  Prove the following containments:
+\vspace{-.1in}
+\begin{multicols}{2}
+\begin{itemize}
+\item[(a)] $\displaystyle\overline{\bigcap_{A\in\calA} A} \subseteq \bigcap_{A\in\calA} \overline{A}$.
+\item[(b)] $\displaystyle\overline{\bigcup_{A\in\calA} A} \supseteq \bigcup_{A\in\calA} \overline{A}$.
+\item[(c)] $\displaystyle\Int\left(\bigcap_{A\in\calA} A\right) \subseteq \bigcap_{A\in\calA}\Int A$.
+\item[(d)] $\displaystyle\Int\left(\bigcup_{A\in\calA} A\right) \supseteq \bigcup_{A\in\calA}\Int A$.
+\end{itemize}
+\end{multicols}
+\vspace{-.1in}
+When $\calA$ is a finite collection, show that equality holds in (b) and (c), but
+not necessarily in (a) or (d).
+\end{exercise}
+\vspace{-.2in}
+\solution
+\textbf{Lemma:} \textit{$A\subseteq B\implies\overline{A}\subseteq\overline{B}$}\\
+For any set $B$ we showed on the last homework that $B\subseteq\overline{B}$. So
+if $A\subseteq B$, then $A\subseteq\overline{B}$.  By definition $\overline{A}$ is
+contained in all closed sets containing $A$, and we've just shown that $\overline{B}$
+is one such set.  Hence $\overline{A}\subseteq\overline{B}$.
+
+\textbf{part (a)}\\
+Let $x\in \overline{\bigcap_{A\in\calA} A}$, and $U$ be an open set with $x\in U$.
+Then $U\cap \bigcap_{A\in\calA} A\ne\emptyset$.  So, for each $A$ we have
+$U\cap A\ne\emptyset$.  Thus for each $A$, $x\in\overline{A}$, hence
+$x\in\bigcap_{A\in\calA}\overline{A}$.
+
+The reverse containment (and hence equality) does not hold even for finite $\calA$, e.g.,
+in $\RR$ take $A_1=(0,1)$ and $A_2=(1,2)$, then
+$\overline{A_1\cap A_2}=\emptyset$, however $\overline{A_1}\cap\overline{A_2}=\{1\}$.
+
+\textbf{part (b)}\\
+Take $x\in\bigcup_{A\in\calA} \overline{A}$, so
+for some $A_0\in\calA$, $x\in\overline{A_0}$.
+Since $A_0\subseteq \bigcup_{A\in\calA} A$, from the Lemma we have
+$\overline{A_0}\subseteq \overline{\bigcup_{A\in\calA} A}$.  Hence
+$x\in\overline{\bigcup_{A\in\calA} A}$.
+
+Now let $\calA$ be finite, and take $x\in\overline{\bigcup_{A\in\calA} A}$,
+and any open $U$ with $x\in U$.  Then we have
+$U\cap \bigcup_{A\in\calA} A\ne\emptyset \implies
+\bigcup_{A\in\calA} (U\cap A)\ne\emptyset$.  So for some $A_0\in\calA$, $U\cap A_0\ne\emptyset$.
+Because $U$ was any open set containing $x$, we conclude $x\in\overline{A_0}$, so $x\in\bigcup_{A\in\calA} \overline{A}$.
+
+\textbf{part (c)}\\
+Take $x\in\Int\bigcap_{A\in\calA} A$.  Then there exists an open set $U$ containing
+$x$ such that $U\subseteq \bigcap_{A\in\calA} A$.  So $U\subseteq A$ for each $A\in\calA$,
+which means $x\in\Int A$ for each $A\in\calA$.  Hence $x\in\bigcap_{A\in\calA}\Int A$.
+
+Now suppose $\calA$ is finite.
+Take $x\in\bigcap_{A\in\calA}\Int A$.  Then $x\in\Int A$ for every $A\in\calA$. 
+For each $A\in\calA$, let $U_A$ be an open set such that $U_A\subseteq A$,
+and $x\in U_A$.  Define $U=\bigcap_{A\in\calA} U_A$.
+Note that $x\in U$, and since $\calA$ is finite, $U$ is open.
+Also, $U\subseteq A$ for
+each $A\in\calA$, so $U\subseteq\bigcap_{A\in\calA} A$.
+Hence $x\in\Int\bigcap_{A\in\calA} A$.
+
+\textbf{part (d)}\\
+Take $x\in\bigcup_{A\in\calA}\Int A$.  Then for some $A_0\in\calA$, we will
+have $x\in\Int A_0$, so let $U$ be an open set with $x\in U\subseteq A_0$.
+But $A_0\subseteq \bigcup_{A\in\calA} A$, so $U\subseteq \bigcup_{A\in\calA} A$,
+and hence $x\in\Int \bigcup_{A\in\calA} A$.
+
+Equality does not hold even for finite $\calA$, e.g., in $\RR$
+take $A_1=(0,1]$ and $A_2=(1,2)$. Then $\Int(A_1\cup A_2)=(0,2)$ and
+$\Int(A_1)\cup\Int(A_2)=(0,1)\cup(1,2)$.
+\end{document}
