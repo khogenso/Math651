@@ -1,0 +1,133 @@
+\documentclass{homework651}
+
+\usepackage[all,cmtip]{xy}
+
+% The following commands set up the material that appears
+% in the header.
+\doclabel{Math 651: Homework 5, Problem 1 Redo}
+\docauthor{Kirk Hogenson}
+\docdate{}
+
+\input{hwextras.tex}
+\newcommand\nextprob{\newpage}
+\newcommand\ra{\rightarrow}
+\newcommand\calB{\mathcal{B}}
+\newcommand\calS{\mathcal{S}}
+
+\begin{document}
+\begin{aproblems}
+
+\hproblem Prove the following variation of Exercise 3.32.
+\begin{subproblems}
+\item  The space $(X_1\times X_2)\times X_3$ is homeomorphic to
+$X_1\times X_2 \times X_3$.  You may not use the words ``open'' or ``closed''
+at any point in your proof.  (\emph{Hint}: Use the Characteristic Property, Luke!)
+
+\item A projection map from an arbitrary product space is an open map.
+
+\item An arbitrary product of Hausdorff spaces is Hausdorff.
+
+\item A countable product of second countable spaces is second countable.
+
+\end{subproblems}
+
+\subsol
+Let $Y = (X_1\times X_2)\times X_3$ and $Z = X_1\times X_2 \times X_3$
+and define $f:Y\ra Z$ as $f((x_1,x_2),x_3)=(x_1,x_2,x_3)$.  Evidently
+$f$ is a bijection.
+
+Observe that these diagrams commute:
+
+\centerline{
+\xymatrix{
+Y \ar[r]^f \ar[d]_{\pi_{1}} & Z \ar[d]^{\pi_{i}} \\
+X_1\times X_2 \ar[r]^{\pi_i} & X_i }
+\qquad\qquad\qquad
+\xymatrix{
+Y \ar[r]^f \ar[dr]_{\pi_3\circ f} & Z \ar[d]^{\pi_3} \\
+ & X_3 }}
+
+The first diagram implies that $\pi_i\circ\pi_1=f\circ\pi_1$.  Since
+a composition of projection functions is continuous, by the characteristic
+property of the product topology $f$ is continuous in its first component.
+The second diagram shows that $f$ is continuous in its
+second component, so $f$ is continuous.
+
+Now $f^{-1}:Z\ra Y$ is $f^{-1}(x_1,x_2,x_3)=((x_1,x_2),x_3)$, and
+we have these diagrams that commute:
+
+\centerline{
+\xymatrix{
+X_1\times X_2\times X_3 \ar[r]^-{f^{-1}} \ar[ddr]_{\pi_{i}} & (X_1\times X_2)\times X_3 \ar[d]^{\pi_{1}} \\
+ & X_1\times X_2 \ar[d]_{\pi_i} \\
+ & X_i }
+\qquad\qquad
+\xymatrix{
+Z \ar[r]^{f^{-1}} \ar[dr]_{\pi_2\circ f^{-1}} & Y \ar[d]^{\pi_2} \\
+ & X_3 }
+}
+
+From the left diagram,
+we have $\pi_i \circ \pi_1 \circ f^{-1} = \pi_i$, and since $\pi_i\circ\pi_1$
+and $\pi_i$ are continuous, $f^{-1}$ is, too, in its first two components.
+From the right diagram, the diagonal is $\pi_2\circ f^{-1}=\pi_3$, which is
+continuous, so $f^{-1}$ is continuous.
+
+Hence $f$ is a homeomorphism, therefore $Y$ and $Z$ are homeomorphic.
+
+\newpage
+
+\subsol
+Let $\pi: \prod_{\alpha\in I} X_\alpha \ra X_0$ be a projection map from
+the arbitrary product space $\prod_{\alpha\in I} X_\alpha$, where $I$ is an index
+collection, to $X_0\in\{X_\alpha\}_{\alpha\in I}$.
+
+Let $U$ be a basic open set in $\prod_{\alpha\in I} X_\alpha$,
+so $U=\prod_{\alpha\in I} U_\alpha$,
+where $U_\alpha$ is open in $X_\alpha$, and all but finitely many
+are $X_\alpha$.  Then, $\pi(U)=U_0$ where $U_0$
+is open in $X_0$.  Thus $\pi$ is an open map.
+
+\subsol
+Let $\prod_{\alpha\in I} X_\alpha$ be an arbitrary product space,
+where $X_\alpha$ is
+Hausdorff for each $\alpha\in I$.  Let $x,y\in\prod_{\alpha\in I} X_\alpha$
+with $x\ne y$.
+Then for some $\beta\in I$, we will have $x_\beta\ne y_\beta$ where
+$x_\beta,y_\beta\in X_\beta\in\{X_\alpha\}_{\alpha\in I}$.
+
+The topological space $X_\beta$ is Hausdorff so there exist sets $U_1$ and
+$U_2$ open in $X_\beta$ with $U_1\cap U_2=\emptyset$.
+
+Let $\pi_\beta:\prod_{\alpha\in I}\ra X_\beta$ be the projection function
+to $X_\beta$ and define 
+$V_1= \pi_\beta^{-1}(U_1)$,
+and
+$V_2=\pi_\beta^{-1}(U_2)$.
+These are open sets
+in $\prod_{\alpha\in I} X_\alpha$ and $V_1\cap V_2=\emptyset$.  Further,
+$x\in V_1$ and $y\in V_2$, so $\prod_{\alpha\in X_\alpha}$ is Hausdorff.
+
+\vspace{.3in}
+
+\subsol
+Let $X=\prod_{n=1}^{\infty} X_n$ be a product of countably many spaces
+$X_n$, where each $X_n$ is second countable.  Hence for each $X_n$ we have
+a countable basis $\calB_n$.
+
+Define $\calS=\{\pi_n^{-1}(B_n):B_n\in\calB_n \text{ and } n\in\Nats\}$,
+where $\pi_n:X\ra X_n$ is the projection function onto the $n$-th component.
+Note that $\calS$ is countable.
+
+Now take any $x=(x_1,x_2,...)\in X$.  Then $x_1\in B_1$
+for some $B_1\in\calB_1$, and $\pi_1^{-1}(B_1)=B_1\times\prod_{n=2}^{\infty} X_n$,
+so $x\in \pi_1^{-1}(B_1)\in\calS$.  Hence $\calS$ covers $X$ and so it
+is a sub-basis for $X$.
+
+We can then form a basis for $X$ from $\calS$ as:
+$$ \calB = \left\{ \bigcap_{i=1}^{N} S_n : S_n\in\calS\right\}.$$
+Observe that $\calB$ is countable, as it is composed of all finite intersections
+of elements of the countable set $\calS$.
+
+\end{aproblems}
+\end{document}
