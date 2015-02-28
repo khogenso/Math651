@@ -1,0 +1,347 @@
+\documentclass{homework}
+
+% Include any special packages you might use.  Uncomment the
+% following to use Times as the default font instead of
+% TeX's default font of Computer Modern.
+\usepackage{times,txfonts}
+\usepackage{amsmath}
+
+% The following commands set up the material that appears
+% in the header.
+\doclabel{Math 651: Homework 4}
+\docauthor{Kirk Hogenson}
+\docdate{February 11, 2015}
+
+\setlength\parindent{0pt}
+\setlength\parskip{12pt}
+
+% I've provided a file (hwextras.tex) with some commonly used extra 
+% commands. If you've downloaded it, you can include it in your document
+% by uncommenting the line below.  Feel free to make changes to that file.
+\input{hwextras.tex}
+
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\calU}{\mathcal{U}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\nextprob}{\newpage}
+\newcommand{\ra}{\rightarrow}
+\DeclareMathOperator{\Int}{\mathrm{Int}}
+
+\begin{document}
+
+\begin{exercise}{1. Problem 2-23}
+Show that every manifold has a basis of coordinate balls.
+\end{exercise}
+\solution
+Let $M$ be a manifold of dimension $n$,
+$x\in M$, $U\subseteq M$ be an open neighborhood
+of $x$, $\phi:U\ra\RR^n$ be a chart for $M$, and $W=\phi(U)$. Observe
+that $f(x)\in W$.
+
+Since $W\subseteq\RR^n$, there exists a coordinate ball
+$B_r(f(x))\subseteq\RR^n$ with $B_r(x)\subseteq W$.
+Let $B_x=\phi^{-1}(B_r(f(x)))$ and note that $B_x\subseteq U$
+and that $B_x$ is open in $U$ because
+$\phi$ is a homeomorphism.
+
+Let $\calB_U=\{B_x\}_{x\in U}$.  The same argument as above shows that
+for any open set $V\subseteq U\subseteq M$ and $x\in V$ there
+is a $B\in\calB_U$ containing $x$ where $B\subseteq V$, hence $\calB_U$
+is a basis for $U$, and moreover each $B\in\calB_U$ is a homeomorphic
+to a coordinate ball in $\RR^n$.
+
+Every manifold is second countable, hence $M$ has an open cover $\calU$.
+Let $\calB=\displaystyle\bigcup_{U\in \calU}\calB_U$.
+
+Then by Problem 2(a), $\calB$ is a basis for $M$,
+and note that each $B\in\calB$ is homeomorphic
+to a coordinate ball in $\RR^n$.
+
+\nextprob
+\begin{exercise}{2. Problem 2-19}
+Let $X$ be a topological space and let $\calU$ be an open cover of $X$.
+\begin{itemize}
+\item[(a)] Suppose we are given a basis for each $U\in\calU$ (when
+considered as a topological space in its own right).  Show that the
+union of all those bases is a basis for $X$.
+\item[(b)] Show that if $\calU$ is countable and each $U\in\calU$
+is second countable, then $X$ is second countable.
+\end{itemize}
+\end{exercise}
+\solution
+\textbf{part (a)}\\
+Let $\calB$ be the union of the bases for each $U\in\calU$.
+
+Take any $x\in X$ and any open $V\subseteq X$ with $x\in V$.
+
+Since $\calU$ is open cover for $X$, every point in $X$ is
+contained in at least one set from $\calU$.  Let $U$ be one
+of these open sets that contains $x$,
+and let $B_U$ be the basis for it.
+
+Let $W=U\cap V$.  Then $x\in W$.
+Observe that $W\subseteq U$, and also that $W$
+is open in $U$.  So there exists $B\in B_U$ with
+$x\in B$ and $B\subseteq W$.  Because $B\in B_U$, we also have
+$B\in\calB$.
+
+We therefore have $x\in B$ and $B\subseteq W\subseteq V$, with
+$B\in \calB$, so $\calB$ is a basis for $X$.
+
+\textbf{part (b)}\\
+In part (a)
+we showed $\calB$ was a basis for $X$.
+
+Since every $U\in\calU$ is second countable, each $U\in\calU$ admits
+a countable basis.  $\calU$ is countable and the union of a countable
+collection is countable, so $\calB$ is countable.
+
+Hence $X$ is second countable.
+
+\nextprob
+\begin{exercise}{3. Problem 2-20}
+Show that second countability, separability, and the Lindel\"of property
+are all equivalent for metric spaces.
+\end{exercise}
+\solution
+We showed in class that second countability implies the Lindel\"of property.
+
+\textbf{Lemma:} \textit{A subset $A\subseteq X$ is dense if and only if
+every nonempty open subset of $X$ contains a point of $A$.}\\
+Suppose $A$ is dense in $X$, and take any open nonempty $U\subseteq X$
+and any $x\in U$.  By assumption $\overline{A}=X$
+therefore $x\in\overline{A}$ so every open neighborhood of $x$
+intersects $A$, and in particular $U$ will intersect $A$, as we wanted to show.
+
+Conversely, suppose that every nonempty subset
+of $X$ contains a point of $A$, so every $x\in X$ will have all
+open sets $U$ satisfy $U\cap A\ne\emptyset$.  Hence $x\in\overline{A}$
+for all $x\in X$ and so $\overline{A}=X$, i.e., $A$ is
+dense in $X$.\hfill$\Box$
+
+\textbf{Lemma 2:} \textit{For any $r>0$ and any $x$ in a metric space $X$,
+the open ball $B_r(x)\supseteq B_{r/2}(\hat x)$ for all $\hat x\in B_{r/2}(x)$.}\\
+Take any $\hat x\in B_{r/2}(x)$ and any $z\in B_{r/2}(\hat x)$.  From the
+triangle inequality we have $$d(x,z)\le d(x,\hat x) + d(\hat x,z).$$
+Because
+$\hat x\in B_{r/2}(x)$ and $z\in B_{r/2}(\hat x)$, this means
+$d(x,z)\le r/2 + r/2 = r$, i.e., that $z\in B_r(x)$ as required.\hfill$\Box$
+
+\textit{second countability $\implies$ separability:}\\
+Let $X$ be second countable, and $\mathcal{B}$ a countable basis for $X$.  For
+each $B_i\in\mathcal{B}$ choose $x_i\in B_i$, and let $A=\{x_i\}$.  So,
+$A$ is countable.
+
+Let $U$ be any open nonempty subset of $X$.  Then there is a $B_i\in\mathcal{B}$
+such that $B_i\subseteq U$.  Thus $x_i\in U$, so $U\cap A\ne\emptyset$,
+and hence from the Lemma, $A$ is dense in $X$.  Because $A$ was countable,
+$X$ is separable.
+
+Note that we did not need to use the fact that $X$ is in a metric space.
+
+\textit{separability $\implies$ second countability:}\\
+Let $X$ be a metric space.
+By assumption, $X$ is separable, so let $A$ be a countable dense subset of $X$.
+Define $\mathcal{B}=\{B_{1/n}(x):x\in A \text{ and } n\in\Nats\}$, and note
+that $\mathcal{B}$ is countable.
+
+Now choose any $x\in X$ and any open set $U$ containing $x$.
+Since $X$ is a metric space, there exists $r>0$ such that
+$B_r(x)\subseteq U$.  Let $N\in\Nats$ be large enough so that
+$1/N<r$, which means $B_{1/N}(x)\subseteq B_r(x)$.
+Let $R=1/(2N)$ and notice that $B_R(x)\subseteq B_{1/N}(x)$.
+
+Now $A\cap B_R(x)\ne\emptyset$ because $A$ is dense.
+Let $a\in A\cap B_R(x)$.  Thus $a\in B_R(x)$, which
+also means $x\in B_R(a)$.
+Furthermore, from Lemma 2 we have that
+$B_R(a)\subseteq B_{1/N}(x)$.
+
+We've just shown that: $x\in B_R(a)\subseteq B_{1/N}(x) \subseteq B_r(x) \subseteq U$.
+Since
+$B_{1/N}(a)\in\mathcal{B}$, this shows that
+$\mathcal{B}$ is a basis for $X$.  Moreover, $\mathcal{B}$ is
+countable, hence $X$ is second countable.
+
+\textit{Lindel\"of $\implies$ separability:}\\
+Let $\mathcal{C}_n = \{B_{1/n}(x) : x\in X\}$, where $n\in\Nats$,
+be the set of open balls
+of radius $1/n$ centered at every point in $X$.
+Evidently, $\mathcal{C}_n$ covers $X$, and
+each $B\in\mathcal{C}_n$ is open in $X$,
+so $\mathcal{C}_n$ is an open over of $X$.
+By assumption we can find a countable subcover $\mathcal{S}_n$
+of $\mathcal{C}_n$.  For each $B\in\mathcal{S}_n$, we select
+a center point $p$, and let this set of points be $P_n$.
+So, $P_n$ is countable.
+
+Define $P=\displaystyle\bigcup_{n=1}^{\infty} P_n$.  This is
+a countable union of countable sets, therefore $P$ is countable.
+
+Take any $U\subseteq X$, and any $x\in U$.
+Since $X$ is a metric space, we can find an open ball
+of radius $r>0$ centered at $x$ where $B_r(x)\subseteq U$.  Now choose
+$k\in\Nats$ large enough so that $1/k<r$, thus $B_{1/k}(x)\subseteq B_r(x)$.
+Let $n=2k$.
+
+Since $\mathcal{S}_n$
+covers $X$, there exists a $B_{1/n}(p)\in\mathcal{S}_n$ with
+$x\in B_{1/n}(p)$.  By Lemma 2, $B_{1/n}(p)\subseteq B_{1/k}(x)$.
+Then $p\in B_{1/k}(x)\subseteq B_r(x)\subseteq U$.
+Since $p\in P$, $U\cap P\ne\emptyset$.  The set $U$ was arbitrary,
+hence, by the Lemma, the set $P$ is dense in $X$.
+Finally, $P$ is countable, thus $X$ is separable.
+
+\nextprob
+\begin{exercise}{4. Exercise 3.7}
+Suppose $X$ is a topological space and $U\subseteq S\subseteq X$.
+\begin{itemize}
+\item[(a)] Show that the closure of $U$ in $S$ is equal to $\overline{U}\cap S$.
+\item[(b)] Show that the interior of $U$ in $S$ contains $\Int U\cap S$; give an
+example to show that they might not be equal.
+\end{itemize}
+\end{exercise}
+\solution
+%\textbf{Lemma:} \textit{For sets $A,B$ and $C$,
+%$A\subseteq B\implies A\cap C\subseteq B\cap C$}\\
+%Assume $A\subseteq B$. Take $x\in A\cap C$, then $x\in A$ so $x\in B$.
+%Also, $x\in C$, so $x\in B\cap C$.\hfill$\Box$
+%
+\textbf{part (a):}\\
+Let $x$ be a point in the closure of $U$ in $S$, and take any set $V$ which is
+open in $X$ that contains $x$.  Since $x\in S$, $x\in V\cap S$, hence
+$V\cap S\ne\emptyset$.  Let $\hat V=V\cap S$, and note that $\hat V$ is
+open in $S$.  Then by assumption, $\hat V\cap U\ne\emptyset$,
+which means $V\cap S\cap U\ne\emptyset\implies V\cap U\ne\emptyset$.
+Hence $x\in\overline{U}$.  Since $x\in S$ as well we have $x\in\overline{U}\cap S$.
+
+Now take $x\in\overline{U}\cap S$.
+Let $\hat V$ be an open set in $S$, with $x\in \hat V$.  Since $\hat V$ is open
+in $S$, there is a set $V$ that is open in $X$ with $\hat V=V\cap S$.  Because
+$\hat V\subseteq V$, we have $x\in V$, and since $x\in\overline{U}$,
+$V$ must intersect $U$, and hence:
+$$ \emptyset\ne U\cap V=S\cap U\cap V=\hat V\cap U$$
+establishing that $x$ is in the closure of $U$ in $S$.
+
+Hence the closure of $U$ in $S$ is equal to $\overline{U}\cap S$.
+
+\textbf{part (b):}\\
+Take $x\in \Int U\cap S$.  Since $x\in\Int U$, there is an open set $\hat V$
+in $X$ with $x\in\hat V\subseteq U$.  Let $V=\hat V\cap S$.  Then $V$ is
+open in $S$ by definition.  Because $x\in\hat V$,
+and $x\in S$, we have $x\in V$.  Also, since $\hat V\subseteq U$,
+$\hat V\cap S \subseteq U\cap S=U$, so $V\subseteq U$.  Hence we have
+constructed a set $V$ that is open in $S$ where $x\in V\subseteq U$, showing
+that $x$ is in the interior of $U$ in $S$.
+
+An example that shows the reverse containment does not always hold is
+$U=[0,1]$, $S=\RR$ and $X=\RR^2$.  The interior of $U$ in $S$ is
+$(0,1)$ but $\Int U = \emptyset$ in $X$, so $\Int U \cap S=\emptyset$.
+
+\nextprob
+\begin{exercise}{5. Problem 3-2}
+Suppose $X$ is a topological space and $A\subseteq B\subseteq X$.  Show that $A$
+is dense in $X$ if and only if $A$ is dense in $B$ and $B$ is dense in $X$.
+\end{exercise}
+\solution
+Suppose $A$ is dense in $B$, and $B$ is dense in $X$.  Since $B$ is dense in $X$
+we have $\overline{B}=X$.  From the previous problem, we have that
+the closure of $A$ in $B$ is equal to $\overline{A}\cap B$, so since $A$ is dense
+in $B$ we have $\overline{A}\cap B=B$.
+
+If $S=T$ then $\overline{S}=\overline{T}$, so
+$ \overline{\overline{A}\cap B}=\overline{B}.$
+
+On a previous homework we showed that
+$\overline{A_1\cap A_2}\subseteq \overline{A_1}\cap\overline{A_2}$, so
+$\overline{\overline{A}\cap B}\subseteq \overline{A}\cap\overline{B}$.
+
+Putting it all together, we can write:
+$$ X=\overline{B}=\overline{\overline{A}\cap B}\subseteq
+\overline{A}\cap\overline{B}=\overline{A}\cap X=\overline{A}. $$
+Hence $X\subseteq\overline{A}$ which means $X=\overline{A}$; showing that
+$A$ is dense in $X$.
+
+Now conversely suppose that $A$ is dense in $X$.  Then $\overline{A}=X$.
+We showed on the last homework that $A\subseteq B$ implies
+that $\overline{A}\subseteq\overline{B}$,
+hence $X\subseteq\overline{B}$, i.e., $X=\overline{B}$,
+showing that $B$ is dense in $X$.
+
+As above, we must now show that $\overline{A}\cap B=B$ in order
+to show $A$ is dense in $B$.  But since $\overline{A}=X$ this
+amounts to showing that $X\cap B=B$, which is the case.
+
+\nextprob
+\begin{exercise}{6. Problem 3-3}
+Show by giving a counterexample that the conclusion of the gluing lemma
+(Lemma 3.23) need not hold if $\{A_i\}$ is an infinite closed cover.
+\end{exercise}
+\solution
+Let $A_n$ = $[\frac{1}{n+1}, \frac{1}{n}]$ for $n\ge 1$.
+Also let $A_0=\{0\}$.
+
+Claim: $\{A_n\}_{n=0}^{\infty}$ covers $[0,1]$.  First observe that
+$0\in A_0$ and $1\in A_1$.  Now take any $x\in(0,1)$. Let $y=1/x$ and
+$N$ be the largest integer where $N\le y$, thus $N\le y\le N+1$. 
+Then
+$\frac{1}{N+1}\ge x\ge \frac{1}{N}$, i.e., $x\in A_N$, establishing the claim.
+
+Now define $f_n:A_n\ra\RR$ by $f_n(x)=0$ for $n\ge 1$, and
+$f_0:A_0\ra\RR$ by $f_0(x)=1$.  Each $f_n$ for $n\ge 0$ is
+continuous as each is a constant function.
+
+Further, we have $f_i=f_j$ for any $i,j\ge 1$,
+everywhere, including the overlaps.
+We also have $A_0\cap A_n=\emptyset$ when $n>0$.
+Hence these $f_n$ and $A_n$ satisfy the conditions of the Gluing
+Lemma (other than finiteness of $\{A_n\}$ of course).
+
+But the function $f:[0,1]\ra\RR$ defined by $f|_{A_n}=f_n$ is
+$$f(x)=\begin{cases}
+1 & x=0\\
+0 & \text{otherwise }
+\end{cases}$$
+which is not continuous at 0.
+
+%\nextprob
+%\begin{exercise}{7. Problem 3-6}
+%Let $X$ be a topological space.  The \emph{diagonal} of $X\times X$ is the
+%subset $\Delta=\{(x,x):x\in X\}\subseteq X\times X$.  Show that $X$ is
+%Hausdorff if and only if $\Delta$ is closed in $X\times X$.
+%\end{exercise}
+%\solution
+%Suppose $X$ is Hausdorff.  Consider
+%$\Delta^c=\{(x,y):x,y\in X \text{ and } x\ne y\}\subseteq X\times X$.
+%Let $(x,y)\in\Delta^c$, where $x,y\in X$.  Therefore $x\ne y$.
+%Because $X$ is Hausdorff, there exist open sets $U_x$ and $U_y$ in $X$
+%with $x\in U_x$ and $y\in U_y$ and $U_x\cap U_y=\emptyset$.  Now define
+%$U_p\subseteq X\times X$ as $U_p=U_x\times U_y=\{(\hat x,\hat y):\hat x\in U_x\text{ and }
+%\hat y\in U_y\}$.
+
+%Note that $U_p$ is open since $X\times X$ has the product topology.
+%Now, take any $(\hat x,\hat y)\in U_p$,
+%and observe that we cannot have $\hat x=\hat y$
+%because $\hat x\in U_x$ and $\hat y\in U_y$, and $U_x\cap U_y=\emptyset$.
+%Hence $(\hat x,\hat y)\in\Delta^c$, which means $U_p\subseteq\Delta^c$.
+
+%Therefore $U_p$ is an open neighborhood of $(x,y)$ in $\Delta^c$ with
+%$U_p\subseteq\Delta^c$, so $\Delta^c$ is open in $X\times X$
+%and hence $\Delta$ is closed in $X\times X$.
+
+%Conversely, suppose $\Delta$ is closed in $X\times X$, and take any $x,y\in X$
+%with $x\ne y$.  Thus $(x,y)\in\Delta^c$. Since $\Delta^c$ is open in
+%$X\times X$, so we can find a basic open set $B$ with $(x,y)\in B$
+%such that $B\subseteq\Delta^c$.
+
+%Every basic open set in the product topology can be expressed as 
+%$B=U\times V$ with $U$ and $V$ open and
+%$U\subseteq X$ and $V\subseteq X$,
+%so let $U$ and $V$ be
+%such sets. Then $x\in U$ and $y\in V$, and since
+%$U\times V\cap\Delta=\emptyset$ we must have $x'\ne y'$ for
+%any $(x',y')\in U\times V$, which implies that
+%$U\cap V=\emptyset$;
+%hence $X$ is Hausdorff.
+
+\end{document}

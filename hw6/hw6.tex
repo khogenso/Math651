@@ -1,0 +1,309 @@
+\documentclass{homework651}
+
+\usepackage[all,cmtip]{xy}
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+%\usepackage{cmacros}
+\usepackage{wrapfig,graphicx}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\calS}{\mathcal{S}}
+\DeclareMathOperator{\Int}{\mathrm{Int}}
+\newcommand{\PP}{\mathbb{P}}
+
+% The following commands set up the material that appears
+% in the header.
+\doclabel{Math 651: Homework 6}
+\docauthor{Kirk Hogenson}
+\docdate{25 February 2015}
+
+\input{hwextras.tex}
+\newcommand\nextprob{\newpage}
+\newcommand\ra{\rightarrow}
+\begin{document}
+\begin{aproblems}
+
+\hproblem Exercise 3.61
+
+A continuous surjective map $q: X \to Y$ is a quotient map if and only if it takes
+saturated open subsets to open subsets, or saturated closed subsets to closed subsets.
+
+\textbf{Lemma:} \textit{If $q:X\ra Y$ is a quotient map, then $V$ is closed in $Y$
+if and only if $q^{-1}(V)$ is closed in $X$.}\\
+\vspace{-.2in}
+\begin{align*}
+\qquad\qquad\qquad\qquad\text{$V$ closed in $Y$} &\iff \text{$V^c$ is open in $Y$}\\
+ &\iff \text{$q^{-1}(V^c)$ is open in $X$}\\
+ &\iff \text{$(q^{-1}(V))^c$ is open in $X$}\\
+ &\iff \text{$q^{-1}(V)$ is closed in $X$.\qquad\qquad\qquad\qquad\qquad$\Box$}\\
+\end{align*}
+\solution
+Suppose $q$ is a quotient map and $A$ is a saturated open set in $X$.  Then
+$A=q^{-1}(B)$ for some $B$ in $Y$.  Then since $A$ is open, $B$ is open as well,
+because $q$ is a quotient map.  Then since $q$ is surjective, we have
+$q(A)=q(q^{-1}(B))=B$, hence $q$ takes saturated open sets in $X$ to open sets
+in $Y$.
+
+Now let $A$ be a saturated closed set.  Then $A=q^{-1}(B)$ for some $B\subseteq Y$,
+and from the lemma we have that $B$ is closed.  As above $q$'s surjectivity
+allows us to write $q(A)=q(q^{-1}(B))=B$, and so $q$ takes saturated closed sets
+in $X$ to closed sets in $Y$.
+
+Conversely suppose $q:X\ra Y$ maps saturated open sets to open sets.
+If $U$ is open in $Y$ then $q^{-1}(U)$ is open in $X$
+because $q$ is continuous.  Further, if $U$ is a set in $Y$ for which $q^{-1}(U)$
+is open in $X$, then $U=q(q^{-1}(U))$ because $q$ is surjective, and $U$ is
+open because $q^{-1}(U)$ is saturated.  Therefore, $U$ is open in $Y$ if and
+only if $q^{-1}(U)$ is open in $X$.
+
+We are given that $q$ is surjective, hence it is a quotient map.
+
+Finally, suppose $q:X\ra Y$ maps saturated closed sets to closed sets and
+let $U$ be open in $Y$.  Observe that $q^{-1}(U)=(q^{-1}(U^c))^c$,
+hence $q$ maps saturated open sets to open sets and so by the above
+$q$ is a quotient map.
+
+\nextprob
+\hproblem The previous exercise implies, as a special case, that surjective open
+maps and surjective closed maps are quotient maps.  But a quotient map need not
+be open and it need not be closed. The point of this exercise is to see an example.
+
+Let $A$ be the set of points $(x,y)$ in $\Reals^2$ with $y=0$ or $x\ge 0$.
+Let $\pi(x,y)=x$.
+Show that $\pi:A\ra\Reals$ is a quotient map, but that it is neither open nor closed.
+
+\solution
+Evidently $\pi$ is surjective.
+
+Let $U$ be a basic open set in $\Reals$, i.e., $U=(a,b)$.
+Then $\pi^{-1}(U)$ is:
+\begin{align*}
+&\text{case 1: }\quad a<b\le 0 &: \pi^{-1}(U) &= (a,b) &\text { open in }A \\
+&\text{case 2: }\quad a\le 0< b &: \pi^{-1}(U) &= (a,0)\cup([0,b)\times\RR) &\text{ open in }A\\
+&\text{case 3: }\quad 0< a<b &: \pi^{-1}(U) &= (a,b)\times\RR &\text{ open in }A
+\end{align*}
+In case 2, note that the resultant set is open since it is equal to
+$(a,b)\times\RR \cap A$, and hence open under the subspace topology.
+
+Now suppose $V$ is a set in $\RR$ for which $\pi^{-1}(V)$ is open in $A$.
+Use $\pi_1:\RR^2\ra\RR$ with $\pi_1(x,y)=x$ to denote an unrestricted $\pi$,
+and note $\pi_1$ is surjective.  Then
+$\pi^{-1}(V)$ open in $A$ $\implies \pi_1^{-1}(V)\cap A$ is open in $\RR^2$.
+And since
+$$ \pi_1^{-1}(V)\cap A = \pi_1^{-1}(V\cap \pi_1(A)) = \pi_1^{-1}(V\cap \RR)
+ = \pi_1^{-1}(V), $$
+we conclude that $V$ is open in $\RR$, because $\pi_1$ is a projection and
+hence an open map.
+
+Therefore, $\pi$ is a quotient map.
+
+Let $V=\{(x,1/x):x>0\}$.  Observe that $V$ is closed in $A$, but $\pi(V)=(0,\infty)$
+which is not closed in $\RR$.  So, $\pi$ is not a closed map.
+
+Finally, let $U=\{(x,y):x\ge 0 \text{ and } y>1\}$.  Observe that $U$ is open
+in $A$ but $\pi(U)=[0,\infty)$ which is not open in $\RR$.  So, $\pi$ is not
+an open map.
+
+\nextprob
+\hproblem Let $\pi:X\rightarrow Y$ be a quotient map and let $A\subseteq X$
+be a saturated closed set or a saturated open set.  Show that $\pi|_A:A\ra \pi(A)$
+is a quotient map.
+
+\textbf{Lemma:} \textit{If $V\subseteq \pi(A)$, then $\pi|_A^{-1}(V)=\pi^{-1}(V)$.}\\
+We can reason as follows.
+\begin{align}
+ \pi|_A^{-1}(V) &= \pi^{-1}(V)\cap A \label{AAA}\\
+                &= \pi^{-1}(V\cap \pi(A)) \nonumber\\
+                &= \pi^{-1}(V)\nonumber
+\end{align}
+Note that we relied on $\pi$ being surjective.
+
+\textbf{Corollary:} As a consequence, note that (\ref{AAA}) implies that if $A$ is open,
+then $\pi^{-1}(V)$ will be open in $X$ if and only if
+$\pi|_A^{-1}(V)$ is open in $A$.  Similarly, if $A$ is closed, we see that this is
+true for closed sets as
+well.\hfill$\Box$
+
+\solution
+Observe that $\pi|_A$ is surjective, by definition.
+
+First consider the case where $A$ is a saturated open set.
+
+Let $V$ be open in $\pi(A)$.
+Then there is a set $U$ open in $Y$ for which $V=U\cap\pi(A)$.
+Note that $\pi^{-1}(U)$ will therefore be open in $X$, since $\pi$ is quotient.
+Now $\pi^{-1}(V)=\pi^{-1}(U\cap\pi(A))=\pi^{-1}(U)\cap A$, because
+$\pi$ is surjective.  Since $A$ is
+open in $X$ by assumption, $\pi^{-1}(V)$ is an intersection of open sets in $X$ and
+so it is open in $X$ as well.
+Then by the Lemma $\pi|_A^{-1}(V)$ is open
+in $A$ as required.
+
+Conversely, take any set $V\subseteq\pi(A)$ for which $\pi|_A^{-1}(V)$ is open in $A$.
+According to the Lemma, $\pi^{-1}(V)$ is thus open in $X$.
+Then $V$ is open in $Y$ because $\pi$ is a quotient map, and from
+the subspace topology we must then have $V$ is open in $\pi(A)$.
+
+Hence when $A$ is a saturated open set, $\pi|_A$ is a quotient map.
+
+If
+$A$ is closed, we can use exactly the same argument replacing ``open''
+with ``closed,'' taking advantage of the Lemma from Exercise 1.
+
+\nextprob
+\hproblem No rigor please on this problem.  Just coherent explanations, and maybe
+a picture or two.
+\begin{subproblems}
+\item Define an equivalence class on $\Cplx$ where $z\sim w$ if there is $u\in S^1$ with
+$z=wu$.  The quotient space $\Cplx/\sim$ is a familiar topological space.  Name it.
+ (``is'' means ``is homeomorphic to, of course'').
+\item Define an equivalence class on $\Reals^2$ where $(x,y)\sim (x+1,-y)$ (along with all the relations then implied by transitivity).  The resulting quotient space is a familiar one.  Name it.
+\end{subproblems}
+%\iffalse
+\subsol
+
+%\begin{center}
+\begin{wrapfigure}{R}{2in}
+\begin{tikzpicture}
+\draw[thick,->] (0,2) -- (4,2);
+\draw[thick,->] (2,0) -- (2,4);
+\draw (2,2) circle (1.5cm);
+\draw (2,2) circle (1.0cm);
+\draw (2,2) circle (.5cm);
+\end{tikzpicture}
+\end{wrapfigure}
+%\end{center}
+
+If we write $z=r_1e^{i\theta_1}$, $w=r_2e^{i\theta_2}$, and $u=e^{i\phi}$, then
+the equivalency condition is
+$$ r_1e^{i\theta_1}=r_2e^{i\theta_2}e^{i\phi}=r_2e^{i(\theta_2+\phi)}.$$
+So, $z\sim w$ if $r_1=r_2$ and $\theta_1=\theta_2+\phi$.  Thus $z$ is related
+to $w$ if (and only if) it is possible to rotate about the origin from $z$
+to $w$.
+
+Hence the space is equivalent to $\RR^+$ (and 0),
+as we could construct a homeomorphism
+between $\Cplx/\sim$ and $\RR^+$ by mapping where the circles intersect the
+positive $x$-axis (or 0) with that same point in $\RR^+\cup\{0\}$.
+
+\vspace{.2in}
+
+\subsol
+
+We may consider only the strip from 0 to 1 along the $x$ axis, as this
+strip contains a representative point from all of the equivalence
+classes; points on the vertical lines $x=0$ and $x=1$ are
+represented twice, and are to be ``glued'' together.
+
+We are gluing opposite edges of an infinite strip together, if the
+identified edges weren't reversed we'd have an infinite cylinder.
+
+As it is we have a M\"obius strip with an infinite ``width,'' i.e., the
+strip extends to infinity in the ``unglued'' direction.
+
+\vspace{.2in}
+
+%\begin{wrapfigure}{r}{2in}
+\centerline{
+\begin{tikzpicture}
+\draw[thick,->] (0,2) -- (4,2);
+\draw[thick,->] (2,0) -- (2,4);
+\draw[dotted] (3,0) -- (3,4);
+\filldraw (2,3) circle (2pt);
+\filldraw (3,1) circle (2pt);
+\draw (2,3.5) circle (2pt);
+\draw (3,.5) circle (2pt);
+\node[fill=black,regular polygon, regular polygon sides=3,inner sep=1.2pt] at (2,1.8){};
+\node[fill=black,regular polygon, regular polygon sides=3,inner sep=1.2pt] at (3,2.2){};
+\draw[thick,->] (8,0.5) -- (8,2);
+\draw[thick] (8,2) -- (8,3.5);
+\draw[thick,->] (9,3.5) -- (9,2);
+\draw[thick] (9,2) -- (9,0.5);
+\draw[dotted] (8,0) -- (8,0.5);
+\draw[dotted] (8,4) -- (8,3.5);
+\draw[dotted] (9,0) -- (9,0.5);
+\draw[dotted] (9,4) -- (9,3.5);
+\end{tikzpicture}
+}
+%\end{wrapfigure}
+
+%\fi
+\nextprob  
+
+\begin{wrapfigure}[8]{r}{1.2in}
+\includegraphics[width=1in]{Suspension}
+\end{wrapfigure}
+\hproblem Let $X$ be a topological space.  The {\bf suspension} of $X$, denoted by
+$\Sigma X$, is the quotient of $X\times [-1,1]$ where all points of the form $(x,1)$
+are identified, and all points of the form $(x,-1)$ are identified.
+Determine, with proof, a familiar space and a continuous bijection to $\Sigma S^n$.
+
+%\textbf{\underline{NOTE:}}
+%\textit{Credit goes to Sergio for creating and sharing the diagram!}
+\solution
+The space that is homeomorphic to $\Sigma S^n$ is $S^{n+1}$.
+
+Define a function $f:S^n\times[-1,1]\ra S^{n+1}$ as $f(x,z)=(x \sqrt{1-z^2}, z)$,
+where $x\in S^n, z\in [-1,1]$.  Notice that
+$$ (x_1^2+...+x_n^2)(1-z^2) + z^2 = (1)(1-z^2)+z^2=1. $$
+thus $f(x,z)\in S^{n+1}$. Also note that $f$ is surjective: let $y\in S^{n+1}$,
+and set $z=y_{n+1}$, and $x=(y_1,...,y_n)/\sqrt{1-z^2}$, then:
+$$ f(x,z)=(x \sqrt{1-z^2}, z)=(y_1,...,y_n,y_{n+1})=y $$
+establishing that $f$ is surjective.
+
+This is the setup:
+
+\centerline{
+\xymatrix{
+S^n\times[-1,1] \ar[d]_{q} \ar[dr]^{f} &  \\
+\Sigma S^n \ar@{.>}[r]_{\tilde f} & S^{n+1}  }}
+
+We've used $q$ to denote the quotient map for the suspension.  The diagram
+will show that $\tilde f$ exists and is continuous,
+if we can establish that $f$ descends to
+the quotient.
+
+The function $f$ will be continuous if its components are.  The last component
+is a projection and is therefore continuous.  The other components are each
+given by $x_k \sqrt{1-z^2}$, with $x_k$ and $z\in[-1,1]$, which is a continuous
+function.
+
+Next, suppose that $q(x_1,z_1)=q(x_2,z_2)$.
+If $z_1 \in (-1,1)$,
+then we must have $x_1=x_2$ and $z_1=z_2$ and so
+$f(x_1,z_1)=f(x_2,z_2)$.
+
+If $z_1=\pm 1$, then $z_1=z_2$ but $x_1$ is not necessarily equal to $x_2$. However,
+$$ f(x_1,z_1) = (x_1\sqrt{1-z_1^2}, z_1)=(0,z_1)=(x_2\cdot 0, z_2)=(x_2\sqrt{1-z_2^2},z_2)=f(x_2,z_2). $$
+Hence $f$ is constant on the fibers of $q$.
+
+Therefore $f$ descends to the quotient, and thus $\tilde f$ exists and is
+continuous.  It remains to show that $\tilde f$ is a bijection.
+
+Observe that $\tilde f(q(x))=f(x)$.  Then since $f$ and $q$ are surjective, $\tilde f$ is
+as well.
+
+Note that not only is $f$ constant on the fibers of $q$, but it is
+constant \emph{only} on the fibers of $q$.  In other words,
+$f(x)=f(y)\implies q(x)=q(y)$.  To see this, suppose $f(x,z_1)=f(y,z_2)$.
+Then by equating
+the last component we conclude $z_1=z_2$.  Let $z=z_1=z_2$.
+Then equating the $k$-th
+component yields $x_k\sqrt{1-z^2}=y_k\sqrt{1-z^2}$.  Hence $x_k=y_k$ or
+$z=\pm 1$, which means $q(x,z)=q(y,z)$ as required.
+
+Finally, suppose $\tilde f(x)=\tilde f(y)$, for $x,y\in \Sigma S^n$.
+Since $q$ is surjective, there is a $y'\in S^n\times[-1,1]$ for which
+$y=q(y')$, and similarly for $x$.  Then, remembering that $f$ is constant
+on the fibers of $q$, and only on the fibers, we can reason as follows
+\begin{align*}
+\tilde f(x)=\tilde f(y) &\implies \tilde f(q(x'))=\tilde f(q(y')) \\
+ &\implies f(x')=f(y') \\
+ &\implies q(x')=q(y') \\
+ &\implies x=y.
+\end{align*}
+Hence $\tilde f$ is injective and therefore bijective.
+
+\end{aproblems}
+\end{document}
+

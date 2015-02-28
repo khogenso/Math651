@@ -1,0 +1,464 @@
+\documentclass{homework}
+
+% Include any special packages you might use.  Uncomment the
+% following to use Times as the default font instead of
+% TeX's default font of Computer Modern.
+\usepackage{times,txfonts}
+\usepackage{amsmath}
+\usepackage{tensor}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{upgreek}
+
+% The following commands set up the material that appears
+% in the header.
+\doclabel{Math 651: Homework 1}
+\docauthor{Kirk Hogenson}
+\docdate{January 23, 2015}
+
+\setlength\parindent{0pt}
+\setlength\parskip{12pt}
+
+% I've provided a file (hwextras.tex) with some commonly used extra 
+% commands. If you've downloaded it, you can include it in your document
+% by uncommenting the line below.  Feel free to make changes to that file.
+\input{hwextras.tex}
+
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\Tau}{\ensuremath{\mathcal{T}}}
+\newcommand{\OR}{\ensuremath{\ \ \text{or}\ \ }}
+\begin{document}
+
+\begin{exercise}{1}
+Prove that every ball $B_r(x)$ in a metric space $(X,d)$ is an open set.
+\end{exercise}
+\solution
+We have to show that for any $y\in B_r(x)$, there is a $\delta>0$
+such that $B_\delta(y) \subset B_r(x)$.  So, let $y$ be any point
+in $B_r(x)$.  By definition, we have $d(x,y)<r$.  Now let
+\begin{equation}
+\delta = r - d(x,y).\label{11}
+\end{equation}
+Since $d(x,y)<r$, we have that $\delta>0$.
+
+%\begin{wrapfigure}{r}{0pt}
+%\begin{tikzpicture}
+%\draw(2,2) circle (3);
+%\draw[dashed] (3.5,3.5) circle (.88);
+%\fill(2,2) circle (.05) node[anchor=south east]{$x$};
+%\fill(3.5,3.5) circle (.05) node[anchor=south east]{$y$};
+%\draw(2,2) -- (3.5,3.5);
+%\draw[->](2,2) -- (5,2) node[anchor=north east]{$r$};
+%\end{tikzpicture}
+%\end{wrapfigure}
+
+Now choose any $z\in B_\delta(y)$. Then $d(z,y)<\delta$, or, using (\ref{11}):
+\begin{equation}
+d(z,y) < r-d(x,y).\label{12}
+\end{equation}
+Now according to the triangle inequality
+\begin{equation*}
+d(x,z) \le d(x,y) + d(y,z)
+\end{equation*}
+Plugging in (\ref{12}),
+\begin{equation*}
+d(x,z) < d(x,y) + r - d(x,y) = r.
+\end{equation*}
+This means $z\in B_r(x)$, hence $B_\delta(y) \subset B_r(x)$, which
+shows that $B_r(x)$ is open.
+
+\hrulefill
+
+\begin{exercise}{2}
+Let $V$ be a subset of a metric space $(X,d)$.  The set of limit
+points of $V$ are those points $x$ that can be written as a the limit of a
+sequence of points in $V$.  Show that a set $V\subseteq X$ is closed
+if and only if it contains its limit points.
+\end{exercise}
+\solution
+We first show the forward implication, i.e., that $V\subseteq X$ is closed
+implies that $V$ contains its limit points.
+
+Let $\{p_i\}_{i=1}^\infty$ be a sequence that converges to $p$, where
+$p_i\in V$ for every $i\in\NN$.  We must show that $p\in V$, and we'll
+do it by contradiction --- suppose $p\not\in V$.  Then $p\in X \backslash V$.
+
+We've assumed that $V$ is closed, this means $X\backslash V$ is open.
+So, there exists $\delta>0$ such that
+$B_\delta(p)\subset X\backslash V$.
+
+Since $p_i\rightarrow p$, for any $\epsilon>0$ there is an $N\in\NN$
+for which $i>N$ implies $d(p_i,p)<\epsilon$.  In particular, we could
+take $\epsilon=\delta$, so we know there is $N$ for which $i>N$
+means $d(p_i,p)<\delta$, i.e., that $p_i\in B_\delta(p)$.
+
+But, $B_\delta(p)\subset X\backslash V$, so we must conclude
+$p_i \in X\backslash V$, or $p_i\not\in V$, which is a contradiction
+since $p_i\in V$.
+
+Thus $p\in V$ and hence $V$ contains its limit points.
+
+Now conversely we suppose that $V$ contains its limit points, and
+show that this implies that $V$ is closed.  We'll again do this
+by contradiction.
+
+Suppose for some $x\in X\backslash V$, there does not exist any $r$
+for which $B_r(x)\subset X\backslash V$.  This means that for any $r>0$,
+there exists $y\not\in X\backslash V$ where $d(x,y)<r$.  In other
+words, for any $r>0$, there exists $y\in V$ such that $d(x,y)<r$.
+
+Let $r_i=1/i$.  Then $r_i\rightarrow 0$ as $i\rightarrow\infty$.
+
+Since, for all $i\in\NN$, $r_i>0$, there exists a corresponding
+$y_i\in V$ for which $d(x,y_i)<r_i$.
+
+So, given any $\epsilon>0$, if we take $N=1/\epsilon$, then:
+$$ i>N \quad\Rightarrow\quad \tfrac{1}{i} < \epsilon
+ \quad\Rightarrow\quad r_i<\epsilon \quad\Rightarrow\quad d(x,y_i)<\epsilon. $$
+Therefore, $\{y_i\}_{i=1}^\infty$ converges to $x$.
+
+Since each $y_i\in V$, by assumption $x\in V$ as well, which is a
+contradiction since we started with $x\in X\backslash V$.  Hence there
+is no such $x$, i.e., every $x\in X\backslash V$ has a
+surrounding open ball
+in $X\backslash V$, which means $X\backslash V$ is open and thus
+that $V$ is closed.
+
+\hrulefill
+
+\begin{exercise}{3}
+Let $d_1$ and $d_2$ be two metrics on a set $X$.  Show that the following
+conditions are equivalent.
+\begin{itemize}
+\item[(a)] For every sequence $\{ p_i\}_{i=1}^\infty$, if $p_i\converges{d_2} p$
+then $p_i\converges{d_1} p$.
+\item[(b)] For every function $f:X\rightarrow \RR$, if $f$ is continuous with
+respect to $d_1$ then $f$ is continuous with respect to $d_2$.
+\item[(c)] For every set $V$, if $V$ is closed with respect to $d_1$ then
+$V$ is closed with respect to $d_2$.
+\item[(d)] For every set $U$, if $U$ is open with respect to $d_1$ then
+$U$ is open with respect to $d_2$.
+\end{itemize}
+
+{\it Hint:} You might want to show $\;{\rm a)} \iff {\rm b)}\;$ and
+$\;{\rm a)} \Longrightarrow {\rm c)} \Longrightarrow {\rm d)} 
+\Longrightarrow {\rm a)}$.
+\end{exercise}
+\solution
+We will prove the implications as suggested in the hint.
+
+\textbf{(a) $\Longrightarrow$ (b)}\\
+Let $f:X\rightarrow \RR$ be continuous with respect to $d_1$.  Then, if we
+have a sequence $x_n$ which is $d_1$-convergent to $x$, then $f(x_n)\rightarrow f(x)$.
+(Note that the covergence of $f$ takes place in $\RR$ and so we need not
+be concerned about $d_1$ or $d_2$.)
+
+We must show if $x_n\converges{d_2} x$, then $f(x_n)\rightarrow f(x)$.
+
+So, let $x_n$ be a sequence where $x_n\converges{d_2} x$.  We are assuming (a),
+so this
+implies $x_n$ is $d_1$-convergent to $x$, too.  Since $f$ is continuous with respect
+to $d_1$, this means $f(x_n)\rightarrow f(x)$, as required.
+
+
+\textbf{(b) $\Longrightarrow$ (a)}\\
+Let $\{p_i\}_{i=1}^\infty$ be a sequence that converges to $p$ with respect
+to $d_2$.  We must show $p_i\converges{d_1}p$.
+
+Since we are assuming (b), every $d_1$-continuous function $f:X\rightarrow\RR$ is also
+$d_2$-continuous.
+
+Consider the function $f:X\rightarrow\RR$ which maps $f(x)=d_1(x,p)$.
+
+Is $f$ $d_1$-continuous?  To see that it is, let $x_i$ be a $d_1$-convergent
+sequence in $X$ that converges to $x$.  Then given $\epsilon>0$ we can find
+$N$ for which $d_1(x_i,x)<\epsilon$.
+
+From the triangle inequality:
+\begin{align}
+d_1(x_i,p) &\le d_1(x_i,x) + d_1(x,p) \nonumber\\
+d_1(x_i,p) - d_1(x,p) &\le d_1(x_i,x) \label{31}
+\end{align}
+But also
+\begin{align}
+d_1(x,p) &\le d_1(x_i,x) + d_1(x_i,p) \nonumber\\
+d_1(x,p) - d_1(x_i,p) &\le d_1(x_i,x) \label{32}
+\end{align}
+Together (\ref{31}) and (\ref{32}) imply that
+$$ |d_1(x,p)-d_1(x_i,p)| \le d_1(x_i,x). $$
+When $i>N$, we have that $d_1(x_i,x)<\epsilon$.  Using $f$ instead of $d_1$, this
+is then
+$$ |f(x)-f(x_i)| < \epsilon$$
+which means $f(x_i)$ converges to $f(x)$ and hence that $f$ is $d_1$-continuous.
+
+So, returning to the main argument, we can now reason as follows.  Since $f$
+is $d_1$-continuous, it will be $d_2$-continuous.
+Thus for the $d_2$-convergent
+sequence $\{p_i\}$ we have $f(p_i)\rightarrow f(p)$, or,
+more precisely, that if we are given $\epsilon>0$ we can find $N$ for
+which $i>N$ implies $|f(p_i)-f(p)|<\epsilon$.
+
+Moreover, since $f$ is the $d_1$-distance
+to $p$, $f(p)=0$, and we just have $d_1(p_i,p)<\epsilon$.
+Thus $p_i$ converges to $p$
+under $d_1$, as we wanted.
+
+\textbf{(a) $\Longrightarrow$ (c)}\\
+Suppose $V$ is closed with respect to $d_1$. We must show $V$ is
+closed with respect to $d_2$.
+
+We showed in Exercise 2 that a set is closed if and only if
+it contains all of its limit
+points.  So, to show $V$ is closed with respect to $d_2$ we
+need to show that any $d_2$-convergent sequence in $V$ converges to
+a point in $V$.
+
+So let $\{p_i\}_{i=1}^\infty$ be a sequence with $p_i\in V$ for
+each $i$, and where $p_i\converges{d_2} p$.  We must show $p\in V$.
+
+We are assuming (a), therefore because $\{p_i\}$ converges to $p$ under $d_2$
+it will under $d_1$, too.  Since $V$ is closed under $d_1$, $p\in V$, as
+required.
+
+\textbf{(c) $\Longrightarrow$ (d)}\\
+Suppose we have $U$ open with respect to $d_1$.\\
+Then by definition $X\backslash U$ is closed with respect to $d_1$.\\
+Then by assumption $X\backslash U$ is closed with respect to $d_2$.\\
+Then by definition $U$ is open with respect to $d_2$.
+
+\textbf{(d) $\Longrightarrow$ (a)}\\
+Let $\epsilon>0$.
+
+Let $\{p_i\}_{i=1}^\infty$ be any sequence and suppose $p_i\converges{d_2}p$.
+We have to show $p_i\converges{d_1}p$, i.e., find $N$ for which $i>N$
+implies $d_1(p_i,p)<\epsilon$.
+
+Consider the set $B^{d_1}_\epsilon(p)$, the open ball of radius $\epsilon$,
+under the $d_1$ metric, centered at $p$.  This is a $d_1$-open set (as we showed
+in Exercise 1), so by assumption it will be a $d_2$-open set as well.
+
+That means $B^{d_1}_\epsilon(p)$ contains a $d_2$-open ball around each of
+its points, including $p$ itself.  If we let $\delta>0$ be the radius of such
+a ball then $B^{d_2}_\delta(p) \subset B^{d_1}_\epsilon(p)$.
+
+Since $\{p_i\}$ converges to $p$ under $d_2$, we can find $N$ so that when
+$i>N$ we will have $d_2(p_i,p)<\delta$, or $p_i\in B^{d_2}_\delta(p)$.
+
+Therefore $p_i\in B^{d_1}_\epsilon(p)$ too.
+Thus $d_1(p_i,p)<\epsilon$ if $i>N$, which means $p_i$ converges to $p$
+under $d_1$.
+
+\hrulefill
+\begin{exercise}{4 (Lee, Problem 2-1)}
+Let $X$ be an infinite set.
+\begin{itemize}
+\item[(a)] Show that
+$$ \Tau_1 = \{ U \subseteq X : U=\emptyset \OR X\backslash U
+                               \text{ is finite } \} $$
+is a topology on $X$, called the \textbf{\textit{finite complement
+topology}}.
+\item[(b)] Show that
+$$ \Tau_2 = \{ U \subseteq X : U=\emptyset \OR X\backslash U
+                               \text{ is countable } \} $$
+is a topology on $X$, called the \textbf{\textit{countable complement
+topology}}.
+\item[(c)] Let $p$ be an arbitrary point in $X$, and show that
+$$ \Tau_3 = \{ U \subseteq X : U=\emptyset \OR p\in U\} $$
+is a topology on $X$, called the \textbf{\textit{particular point
+topology}}.
+\item[(d)] Let $p$ be an arbitrary point in $X$, and show that
+$$ \Tau_4 = \{ U \subseteq X : U=X \OR p\not\in U\} $$
+is a topology on $X$, called the \textbf{\textit{excluded point
+topology}}.
+\item[(e)] Determine whether
+$$ \Tau_5 = \{ U \subseteq X : U=X \OR X\backslash U
+                               \text{ is infinite } \} $$
+is a topology on $X$.
+\end{itemize}
+\end{exercise}
+\solution
+For each of (a)-(d), we have three things to check to show that
+the given $\Tau_i$ is a topology:
+\begin{itemize}
+\item[(i)] That $X$ and $\emptyset$ are in $\Tau_i$.
+\item[(ii)] That an intersection of a finite number of sets
+from $\Tau_i$ is also in $\Tau_i$.
+\item[(iii)] That a union of a collection of sets from $\Tau_i$
+is also in $\Tau_i$.
+\end{itemize}
+
+\textbf{part (a)}\\
+$$ \Tau_1 = \{ U \subseteq X : U=\emptyset \OR X\backslash U
+                               \text{ is finite } \} $$
+
+\begin{itemize}
+\item[(i)] $\emptyset\in\Tau_1$ by definition.  $X\in\Tau_1$
+because $X\backslash X=\emptyset$ is finite.
+\item[(ii)] Let $U_1,\ldots,U_n\in\Tau_1$, and $V=U_1\cap\cdots\cap U_n$.
+We will use $U_i$ to refer to one of the sets $U_1,\ldots,U_n$.
+
+If any of $U_i$ is the empty set, then $V=\emptyset$,
+and hence $V\in\Tau_1$.
+
+On the other hand, if none of the $U_i=\emptyset$, then
+each $X\backslash U_i$ must be finite.  And, by De Morgan's law:
+$$ X\backslash V = X\backslash(U_1\cap\cdots\cap U_n) =
+ (X\backslash U_1) \cup \cdots \cup (X\backslash U_n).$$
+The union of a finite collection of finite sets is finite, therefore
+$X\backslash V$ is finite and thus $V\in\Tau_1$.
+
+So in either case $V\in\Tau_1$ and thus $\Tau_1$ is closed under
+finite intersection.
+\item[(iii)] Let $\{U_\alpha\}_{\alpha\in A}$ be a collection
+of open sets in $\Tau_1$, and let $V=\bigcup_{\alpha\in A} U_\alpha$.
+
+If $A$ is empty, or if $U_\alpha=\emptyset$ for every $\alpha\in A$,
+then $V=\emptyset$ and $V\in\Tau_1$.
+
+Otherwise, suppose we have at least one nonempty $U_\alpha$ in
+the collection.  Let $A'$ be the set of $\alpha\in A$ for which $U_\alpha$ is
+nonempty.  Then
+$$ \bigcup_{\alpha\in A} U_\alpha = \bigcup_{\alpha\in A'} U_\alpha $$
+because the sets excluded in the union on the right are all empty.
+
+Then, by De Morgan's law:
+$$ X\backslash V = X\backslash \left(\bigcup_{\alpha\in A'} U_\alpha\right) =
+ \bigcap_{\alpha\in A'}\left(X\backslash U_\alpha\right). $$
+Since each $U_\alpha$ is nonempty, and $U_\alpha\in\Tau_1$, it must be
+the case that $X\backslash U_\alpha$ is finite. So, this is an
+intersection of a collection of finite sets which is finite.
+So, $X\backslash V$ is finite and so $V\in\Tau_1$.
+\end{itemize}
+Therefore $\Tau_1$ is a topology.
+
+\textbf{part (b)}\\
+$$ \Tau_2 = \{ U \subseteq X : U=\emptyset \OR X\backslash U
+                               \text{ is countable } \} $$
+
+This goes exactly like the argument from part (a).
+
+In part (ii)
+we will use that a union of a finite number of countable sets is countable,
+and in part (iii) that an intersection of any collection of countable
+sets is countable.
+
+\textbf{part (c)}\\
+For a specified $p\in X$,
+$$ \Tau_3 = \{ U \subseteq X : U=\emptyset \OR p\in U\} $$
+
+\begin{itemize}
+\item[(i)] $\emptyset\in\Tau_3$ by definition.  $X\in\Tau_3$ because
+$p\in X$.
+\item[(ii)] Let $U_1,\ldots,U_n\in\Tau_3$, and $V=U_1\cap\cdots\cap U_n$.
+
+First, consider the case where at least one of the sets $U_i$ is the empty set.
+Then, $V=\emptyset$ and so $V\in\Tau_3$.
+
+Now suppose that none of the sets $U_i$ is empty.
+Then, for every $U_i$ we must have $p\in U_i$.  So, $p\in V$, too,
+and thus $V\in\Tau_3$.
+\item[(iii)] Let $\{U_\alpha\}_{\alpha\in A}$ be a collection
+of open sets in $\Tau_3$, and let $V=\bigcup_{\alpha\in A} U_\alpha$.
+
+If all of the sets $U_\alpha$ are empty, then $V=\emptyset$, and
+therefore $V\in\Tau_3$.
+
+If there is at least one nonempty $U_\alpha$, then it contains $p$,
+and so $p$ will be in the union $V$; thus $V\in\Tau_3$ in this case
+as well.
+\end{itemize}
+Therefore $\Tau_3$ is a topology.
+
+\textbf{part (d)}\\
+For a specified $p\in X$,
+$$ \Tau_4 = \{ U \subseteq X : U=X \OR p\not\in U\} $$
+
+\begin{itemize}
+\item[(i)] $\emptyset\in\Tau_4$ because $p\not\in\emptyset$. $X\in\Tau_4$
+by definition.
+\item[(ii)] Let $U_1,\ldots,U_n\in\Tau_3$, and $V=U_1\cap\cdots\cap U_n$.
+
+If every $U_i$ is $X$, then $V=X$ and hence $V\in\Tau_4$.
+
+On the other hand if at least
+one of $U_i$ is not $X$, then for that $i$, we have that $p\not\in U_i$.
+So, $p\not\in V$ either, which means $V\in\Tau_4$.
+
+So $V\in\Tau_4$.
+\item[(iii)] Let $\{U_\alpha\}_{\alpha\in A}$ be a collection
+of open sets in $\Tau_3$, and let $V=\bigcup_{\alpha\in A} U_\alpha$.
+
+If there is at least one $\alpha\in A$ for which $U_\alpha$ is $X$,
+then $V=X$ as well, which means $V\in\Tau_4$.
+
+If $U_\alpha \ne X$ for every $\alpha\in A$, then $p\not\in U_\alpha$ for
+every $\alpha\in A$.  Therefore $p\not\in V$, hence $V\in\Tau_4$.
+
+So $V\in\Tau_4$.
+\end{itemize}
+Therefore $\Tau_4$ is a topology.
+
+\textbf{part (e)}\\
+$$ \Tau_5 = \{ U \subseteq X : U=X \OR X\backslash U
+                               \text{ is infinite } \} $$
+
+No, $\Tau_5$ is not a topology.
+
+Let $X$ be the set of non-negative integers:
+$$ X=\{ 0, 1, 2, 3, \ldots \} $$
+and, consider these two sets:
+\begin{align*}
+U_1 &= \{ 1, 3, 5, \ldots \} \quad\text{ (positive odd integers) } \\
+U_2 &= \{ 2, 4, 6, \ldots \} \quad\text{ (positive even integers) }
+\end{align*}
+$U_1$ and $U_2$ are in $\Tau_5$ because:
+\begin{align*}
+X\backslash U_1 &= \{ 0, 2, 4, \ldots \} \quad\text{ which is infinite }\\
+X\backslash U_2 &= \{ 1, 3, 5, \ldots \} \quad\text{ which is infinite }
+\end{align*}
+Then,
+\begin{align*}
+U_3 = U_1 \cup U_2 &= \{ 1, 2, 3, \ldots \}
+\end{align*}
+But $X \backslash U_3 = \{ 0 \}$,
+which is not infinite. Also, $U_3 \ne X$, therefore $U_3$ is not in $\Tau_5$.
+
+So, $\Tau_5$ does not have the property that all unions of sets from
+$\Tau_5$ are in $\Tau_5$, and therefore is not a topology.
+
+\hrulefill
+\begin{exercise}{5 (Lee, Exercise 2.6)}
+Let $X$ be a set, and suppose $\{\Tau_\alpha\}_{\alpha\in A}$ is a
+collection of topologies on $X$.  Show that the intersection
+$\Tau=\cap_{\alpha\in A}\Tau_\alpha$ is a topology on $X$.  (The
+open subsets in this topology are exactly those subsets of $X$
+that are open in each of the topologies $\Tau_\alpha$.)
+\end{exercise}
+\solution
+We have to verify that $\Tau$ has the three properties
+given in Exercise 4.
+\begin{itemize}
+\item[(i)] Since each $\Tau_\alpha$ is a topology, each contains
+$X$ and $\emptyset$, and so $\Tau$ will as well.
+\item[(ii)] Let $U_1, \ldots,U_n \in \Tau$, and $V=U_1\cap\cdots\cap U_n$.
+We must show $V\in\Tau$.
+
+Each $U_i\in\Tau$, so each $U_i$ is in $\Tau_\alpha$ for all $\alpha\in A$.
+And since $\Tau_\alpha$ is a topology, it is closed under finite intersection,
+i.e.:
+$$ V=U_1\cap\cdots\cap U_n \in \Tau_\alpha.$$
+This holds for all $\alpha\in A$, therefore $V\in\Tau$ and hence $\Tau$
+is closed under finite intersection.
+\item[(iii)] Let $\{U_\beta\}_{\beta\in B}$ be a collection of
+open sets in $\Tau$, and let $V=\bigcup_{\beta\in B}U_\beta$.  We must
+show $V\in\Tau$.
+
+Since, for each $\beta\in B$, $U_\beta\in\Tau$, we must have that
+$U_\beta\in\Tau_\alpha$ for all $\alpha\in A$.  Since $\Tau_\alpha$
+is closed under arbitrary union:
+$$ V=\bigcup_{\beta\in B}U_\beta \in \Tau_\alpha. $$
+This holds for all $\alpha\in A$, which means $V\in\Tau$ as we
+wanted.
+\end{itemize}
+Thus, $\Tau$ is a topology.
+\end{document}

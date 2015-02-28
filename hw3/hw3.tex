@@ -1,0 +1,527 @@
+\documentclass{homework}
+
+% Include any special packages you might use.  Uncomment the
+% following to use Times as the default font instead of
+% TeX's default font of Computer Modern.
+\usepackage{times,txfonts}
+\usepackage{amsmath}
+\usepackage{tensor}
+
+% The following commands set up the material that appears
+% in the header.
+\doclabel{Math 651: Homework 3}
+\docauthor{Kirk Hogenson}
+\docdate{February 4, 2015}
+
+\setlength\parindent{0pt}
+\setlength\parskip{12pt}
+
+% I've provided a file (hwextras.tex) with some commonly used extra 
+% commands. If you've downloaded it, you can include it in your document
+% by uncommenting the line below.  Feel free to make changes to that file.
+\input{hwextras.tex}
+
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\calA}{\mathcal{A}}
+\newcommand{\calB}{\mathcal{B}}
+\DeclareMathOperator{\Int}{\mathrm{Int}}
+\begin{document}
+
+\begin{exercise}{1. Lee, Exercise 2.22}
+Suppose $f:X\ra Y$ is a homeomorphism and $U\subseteq X$ is an open subset.
+Show that $f(U)$ is open in $Y$ and the restriction $f|_U$ is a homeomorphism
+from $U$ to $f(U)$.
+\end{exercise}
+\solution
+Since $f$ is a homeomorphism, $f^{-1}$ exists and is continuous.  Thus
+under $f^{-1}:Y\ra X$, preimages of open sets are open.  $U$ in $X$ is open,
+and so its preimage under $f^{-1}$, which is $f(U)$ in $Y$, is open.
+
+Let $W=f(U)$.  Note that we just showed that $W$ is open.
+Now consider $f|_U$.
+We showed in class that the restriction of a continuous
+function is continuous in the restricted set if it is open.  Here we have
+both $f$ and $f^{-1}$ are continuous,
+and that $U\subseteq X$ and $W\subseteq Y$
+are open.  Hence $f|_U$ and $f^{-1}|_W$ are both continuous.
+
+$f|_U$ is surjective into $W=f(U)$ by definition.  Now observe that if
+$f|_U$ were not injective into $W$, then we'd have $w\in W\subseteq Y$ and
+$x,y\in U\subseteq X$ with $x\ne y$
+where $f(x)=w$ and $f(y)=w$,
+and so $f$ (unrestricted) wouldn't be injective, either.
+But $f$ is injective into $Y$,
+hence $f|_U$ is injective into $W$, too.
+
+So, $f|_U$ is bijective and hence a homeomorphism.
+
+\hrulefill
+\begin{exercise}{2. Lee, Exercise 2.23}
+Let $\tau_1$ and $\tau_2$ be topologies on the same set $X$.  Show that the
+identity map of $X$ is continuous from $(X,\tau_1)$ to $(X,\tau_2)$ if and
+only if $\tau_1$ is finer than $\tau_2$, and is a homeomorphism if and only
+if $\tau_1=\tau_2$.
+\end{exercise}
+\solution
+Let $i:(X,\tau_1)\ra(X,\tau_2)$ be the identity map, and suppose it is continuous.
+Further suppose that $\tau_1$ is not finer than $\tau_2$, i.e, that
+$\tau_1\subset\tau_2$.
+Then there exists an open set $U\in\tau_2$ where $U\not\in\tau_1$.  But
+then we have
+$i^{-1}(U)=U$ is not open in $\tau_1$ which is a contradiction since we
+assumed $i$ was continuous.  So,
+$\tau_1$ must be finer than $\tau_2$.
+
+Conversely, let $\tau_1$ be finer than $\tau_2$, i.e., $\tau_1\supseteq\tau_2$.
+If $U$ is any open set in $\tau_2$ then it is an open set in $\tau_1$, too.
+Since $i^{-1}(U)=U$, $i$ is continuous.
+
+We have just shown that $i$ is continuous if and only if $\tau_1$ is finer
+than $\tau_2$.  If we apply that result to $i^{-1}$, we conclude that $i^{-1}$
+is continuous if and only if $\tau_2$ is finer than $\tau_1$.  Since $i$ is
+bijective, we see that $i$ is a homeomorphism if and only if we have both
+ $\tau_1\subseteq\tau_2$ and $\tau_2\subseteq\tau_1$, i.e., $\tau_1=\tau_2$.
+
+%\hrulefill
+\newpage
+\begin{exercise}{3. Lee, Problem 2-4}
+Let $X$ be a topological space and let $\calA$ be a collection of subsets
+of $X$.  Prove the following containments:
+\begin{itemize}
+\item[(a)] $\displaystyle\overline{\bigcap_{A\in\calA} A} \subseteq \bigcap_{A\in\calA} \overline{A}$.
+\item[(b)] $\displaystyle\overline{\bigcup_{A\in\calA} A} \supseteq \bigcup_{A\in\calA} \overline{A}$.
+\item[(c)] $\displaystyle\Int\left(\bigcap_{A\in\calA} A\right) \subseteq \bigcap_{A\in\calA}\Int A$.
+\item[(d)] $\displaystyle\Int\left(\bigcup_{A\in\calA} A\right) \supseteq \bigcup_{A\in\calA}\Int A$.
+\end{itemize}
+When $\calA$ is a finite collection, show that equality holds in (b) and (c), but
+not necessarily in (a) or (d).
+\end{exercise}
+\solution
+\textbf{Lemma}\\
+We first show a few preliminary results that we will need here
+as well as in Exercise 5.
+
+(i) $f(A)\subseteq B \iff A \subseteq f^{-1}(B)$.  This follows immediately
+from the definition of the preimage, both sides of the implication
+require $x\in A$ and $f(x)\in B$.
+
+(ii) $A\subseteq B \implies \overline{A} \subseteq \overline{B}$.  To prove
+this, recall that in a Lemma on the last homework we showed that
+for any set $B$, $B\subseteq\overline{B}$, so since 
+$A\subset B$, $A\subseteq \overline{B}$. By definition, $\overline{A}$
+is contained in all closed sets containing $A$, and we've just shown
+that $\overline{B}$ is one such set.  Hence $\overline{A}\subseteq\overline{B}$.
+
+(iii) $A\subseteq B \implies \Int A \subseteq \Int B$.
+This is because
+if $x\in\Int A$, then there exists an open set $U$ containing $x$ with
+$U\subseteq A$.  If $A\subseteq B$, then $U\subseteq B$; therefore there
+exists an open set $U$ containing $x$ in $B$, too, which implies
+$x\in\Int B$.
+
+(iv) $\Int A\subseteq A$ for any set $A$.  
+This is because $\Int A$ is a union of all open sets contained in
+$A$, and thus the union will be contained in $A$, too (see (vii)).  Note that
+this also implies that $\Int A$ is an open set.
+
+(v) $A=\Int A \iff A$ is open.  The forward implication is immediate,
+if $A=\Int A$, then, since $\Int A$ is open as noted in (iv), $A$ is open too.
+Now conversely, from (iv), $\Int A\subseteq A$.
+And, $A\subseteq \Int A$ because $A$ will be one of the open sets in the
+union used to build $\Int A$, if it is open.
+Hence $A=\Int A$ when $A$ is open.
+
+(vi) $A\subseteq B$ in $Y \implies f^{-1}(A)\subseteq f^{-1}(B)$ in $X$.
+If $y\in f^{-1}(A)$, then $f(y)\in A$.  And, if $A\subseteq B$, we conclude
+$f(y)\in B$, and hence $y\in f^{-1}(B)$.
+
+(vii) Perhaps this is too self-evident for a Lemma, but we will need to use the
+fact that if each set $A$ in a collection $\calA$ is a subset of a set $B$, then
+the union is, too:
+$$ A\subseteq B\ \ \forall A\in\calA \implies \bigcup_{A\in\calA} A \subseteq B. $$
+Let $x\in \displaystyle\bigcup_{A\in\calA} A$.  Then $x$ is contained in one
+of the sets $A\in\calA$, for which $A\subseteq B$, thus $x\in B$.
+
+\textbf{part (a)}\\
+We showed in the Lemma that
+\begin{equation}
+A\subseteq B\implies\overline{A}\subseteq\overline{B}\label{ZZ}
+\end{equation}
+
+For each $A\in\calA$, we have $\displaystyle\bigcap_{A\in\calA}A\subseteq A$.
+So applying (\ref{ZZ}) we will have
+$$\overline{\bigcap_{A\in\calA}A}\subseteq \overline{A}.$$
+
+Take any $x\in\displaystyle\overline{\bigcap_{A\in\calA}A}$.  Now $x$ will
+by definition be contained in the intersection of all closed sets that
+contain $\displaystyle\overline{\bigcap_{A\in\calA}A}$.  But we've just shown
+that $\overline{A}$ is such a set, for each $A\in\calA$.  So, $x$ will be
+contained in their intersection. $x$ was arbitrary, so:
+$$\overline{\bigcap_{A\in\calA} A} \subseteq \bigcap_{A\in\calA} \overline{A}$$
+as desired.
+
+The reverse containment (and hence equality) does not hold even for finite $\calA$, e.g.,
+in $\RR$ take $A_1=(0,1)$ and $A_2=(1,2)$, then
+$\overline{A_1\cap A_2}=\emptyset$, however $\overline{A_1}\cap\overline{A_2}=\{1\}$.
+
+\textbf{part (b)}\\
+For every $A\in\calA$, we have $A \subseteq \displaystyle\bigcup_{A\in\calA}A$, so using (ii),
+$$ \overline{A} \subseteq \overline{\bigcup_{A\in\calA} A}\qquad\text{ for }A\in\calA $$
+Therefore, as shown in the Lemma, the union over all of
+$A\in\calA$ of each $\overline{A}$ will be contained in it
+as well, yielding the desired result:
+$$ \bigcup_{A\in\calA} \overline{A} \subseteq \overline{\bigcup_{A\in\calA} A}. $$
+
+Now suppose that $\calA$ is finite.  Because (as shown on the previous
+homework) $A\subseteq \overline{A}$ for each $A\in\calA$, we must have
+$$\bigcup_{A\in\calA} A \subseteq \bigcup_{A\in\calA}\overline{A}.$$
+As noted already, we can take the closure of each side and preserve the
+containment, thus
+$$\overline{\bigcup_{A\in\calA} A} \subseteq \overline{\bigcup_{A\in\calA}\overline{A}}.$$
+Since the union of a finite collection
+of closed sets is itself closed, $\displaystyle\bigcup_{A\in\calA}\overline{A}$ is a closed set,
+so we may drop the outer closure on the right and we are left with
+$$\overline{\bigcup_{A\in\calA} A} \subseteq \bigcup_{A\in\calA}\overline{A}.$$
+Hence $\displaystyle\overline{\bigcup_{A\in\calA} A} = \bigcup_{A\in\calA}\overline{A}$ for
+finite $\calA$.
+
+\textbf{part (c)}\\
+Let $x\in\Int\displaystyle\bigcap_{A\in\calA} A$.  Since this is an
+open set,
+there exists an open set $U$ containing $x$ such that
+$U \subseteq \displaystyle\bigcap_{A\in\calA} A$.
+
+Therefore $U$ is in each member of the intersection, i.e., for every
+$A\in\calA$, $U\subseteq A$.  So $x\in\Int A$ for each $A\in\calA$,
+and hence $x\in\displaystyle\bigcap_{A\in\calA}\Int A$, establishing
+the result.
+
+Now consider a finite collection $\calA$.  For each $A$, we have from
+Lemma part (iv) that $\Int A\subseteq A$.  We claim that
+\begin{equation}
+\bigcap_{A\in\calA} \Int A \subseteq \bigcap_{A\in\calA} A.\label{AFA}
+\end{equation}
+To establish this, let $x$ be any point in the intersection of the
+interiors.  This means that $x$ is in $\Int A$ for all $A\in\calA$.
+Since $\Int A\subseteq A$, $x$ is in $A$ for all $A\in\calA$ as
+claimed.
+
+Now apply Lemma (iii) to (\ref{AFA}):
+$$\Int \bigcap_{A\in\calA} \Int A \subseteq \Int \bigcap_{A\in\calA} A.$$
+By Lemma (iv), $\Int S=S$ if $S$ is open.
+On the left hand side, then, we have a finite intersection of open sets, hence
+the set is open before taking the interior, and so
+$$ \bigcap_{A\in\calA} \Int A \subseteq \Int \bigcap_{A\in\calA} A$$
+which is what we wanted to show.
+
+Hence for finite $\calA$ we have
+$\displaystyle\Int\bigcap_{A\in\calA} A \subseteq \bigcap_{A\in\calA}\Int A$.
+
+\textbf{part (d)}\\
+From the Lemma we have that
+$A\subseteq B\implies\Int A\subseteq\Int B$.
+
+For every $A\in\calA$, we have $A \subseteq \displaystyle\bigcup_{A\in\calA}A$, so
+$$ \Int A \subseteq \Int \bigcup_{A\in\calA} A \qquad\text{ for }A\in\calA $$
+Therefore, as shown in the Lemma, the union over all of
+$A\in\calA$ of each $\Int A$ will be contained in it
+as well:
+$$ \bigcup_{A\in\calA} \Int A \subseteq \Int \bigcup_{A\in\calA} A. $$
+
+Equality does not hold even for finite $\calA$, e.g., in $\RR$
+take $A_1=(0,1]$ and $A_2=(1,2)$.  Then $\Int(A_1\cup A_2)=(0,2)$ and
+$\Int(A_1)\cup\Int(A_2)=(0,1)\cup(1,2)$.
+
+\hrulefill
+\begin{exercise}{4. Lee, Problem 2-5}
+For each of the following properties, give an example consisting of two subsets
+$X,Y\subseteq \RR^2$, both considered as topological spaces with their Euclidean
+topologies, together with a map $f:X\ra Y$ that has the indicated property.
+\begin{itemize}
+\item[(a)] $f$ is open but neither closed nor continuous.
+\item[(b)] $f$ is closed but neither open nor continuous.
+\item[(c)] $f$ is continuous but neither open nor closed.
+\item[(d)] $f$ is continuous and open but not closed.
+\item[(e)] $f$ is continuous and closed but not open.
+\item[(f)] $f$ is open and closed but not continuous.
+\end{itemize}
+\end{exercise}
+\solution
+\textbf{part (a): } $f$ is open but neither closed nor continuous:\\
+Let $f:(0,3)\ra(0,4)$ be
+$$f(x) = \begin{cases}
+x & x<2 \\
+1 & x=2 \\
+x+1 & x>2
+\end{cases}
+$$
+$f$ is clearly not continuous.  $f$ is not closed since $f((0,2])$ is
+$(0,2)$, which is not closed.  But $f$ is open, any interval not
+containing 1 is clearly open, and an interval that does contain 1
+is mapped to two separate open intervals.
+
+\textbf{part (b): } $f$ is closed but neither open nor continuous:\\
+Let $f:\RR\ra\RR$ be $f(x)=\lfloor x\rfloor$.  This is the floor function
+that maps a real number $x$ to the largest integer that is $\le x$.  The
+images of $f$ are points, which are closed when considered subsets of
+$\RR$.  So, all sets map to closed sets under $f$.
+
+Also observe that $f$ is discontinuous.
+
+\textbf{part (c): } $f$ is continuous but neither open nor closed:\\
+Let $f:\RR^+\ra\RR^2$ be $f(x)=(e^{-x},0)$, where $X=\RR^+$ is the set of positive
+real numbers, $\RR^+ = \{x\in\RR:x>0\}$.
+
+Then $f$ is continuous, but $f(\RR^+)$ is $((0,1), 0)$ in $\RR^2$ which is
+neither open nor closed.
+
+\textbf{part (d): } $f$ is continuous and open but not closed:\\
+Take $f:\RR\ra\RR: f(x)=e^{-x}$.
+
+Then $f$ is continuous, and $f$ maps open sets to open sets, but
+$f([0,\infty)) = (0,1]$, so it is not closed.
+
+\textbf{part (e): } $f$ is continuous and closed but not open:\\
+Take $f:\RR\ra\RR: f(x)=0$.
+
+${0}$ is closed in $\RR$, so $f$ maps any set to a closed set, hence it
+is closed and not open.  $f$ is a constant function and thus continuous.
+
+\textbf{part (f): } $f$ is open and closed but not continuous:\\
+In Exercise 8 we show that the inverse of the map $\exp : [0,1)\rightarrow S^1$
+given by $\exp(x)=e^{2\pi ix}$ is discontinuous.  It is also both
+open and closed.
+
+\hrulefill
+\begin{exercise}{5. Lee, Problem 2-6}
+Suppose $X$ and $Y$ are topological spaces, and $f:X\ra Y$ is any map.
+\begin{itemize}
+\item[(a)] $f$ is continuous if and only if $f(\overline{A})\subseteq\overline{f(A)}$
+for all $A\subseteq X$.
+\item[(b)] $f$ is closed if and only if $f(\overline{A})\supseteq\overline{f(A)}$
+for all $A\subseteq X$.
+\item[(c)] $f$ is continuous if and only if $f^{-1}(\Int B)\subseteq\Int f^{-1}(B)$
+for all $B\subseteq Y$.
+\item[(d)] $f$ is open if and only if $f^{-1}(\Int B)\supseteq\Int f^{-1}(B)$
+for all $B\subseteq Y$.
+\end{itemize}
+\end{exercise}
+\solution
+\textbf{part (a)}\\
+Suppose $f$ is continuous and take any $A\subseteq X$.
+
+First, since
+$f(A)\subseteq \overline{f(A)}$, from the Lemma we
+have $A\subseteq f^{-1}(\overline{f(A)})$.  Applying result (ii) from the
+Lemma (in Exercise 3) leads to:
+\begin{equation}
+\overline{A} \subseteq \overline{f^{-1}(\overline{f(A)})}. \label{5a1}
+\end{equation}
+Now observe that the set $\overline{f(A)}$ is
+closed, so $\overline{f(A)}^c$ is open.  Since $f$ is continuous, this
+means $f^{-1}(\overline{f(A)}^c)$ is open. But
+$f^{-1}(\overline{f(A)}^c) = \left( f^{-1}(\overline{f(A)}) \right)^c$, thus
+the set $f^{-1}(\overline{f(A)})$ is closed.
+
+Thus, the set on the right
+hand side of (\ref{5a1}) is already closed, hence
+$\overline{A}\subseteq f^{-1}(\overline{f(A)})$, which, from the Lemma, means
+$f(\overline{A})\subseteq \overline{f(A)}$ as we wanted.
+
+Now conversely assume that $f(\overline{A})\subseteq \overline{f(A)}$ is true
+for every set $A$ in $X$.  We wish to show this means $f$ is continuous, so
+take $W$ open in $Y$, and let $U=f^{-1}(W)$.
+
+Note that $U^c=(f^{-1}(W))^c=f^{-1}(W^c)$.  By assumption,
+$f(\overline{U^c})\subseteq\overline{f(U^c)}$, so:
+$$ f(\overline{U^c})\subseteq \overline{f(f^{-1}(W^c))} $$
+According to exercise A.4-(a) in the text, $f(f^{-1}(S))\subseteq S$, so
+togther with (ii) from the Lemma:
+$$ f(\overline{U^c})\subseteq \overline{W^c}. $$
+Since $W^c$ is already closed, we can skip the closure, and we
+have $f(\overline{U^c})\subseteq W^c$, or $\overline{U^c}\subseteq U^c$,
+which means $U^c$ is closed and thus $U$ is open, and hence that $f$ is
+continuous.
+
+\textbf{part (b)}\\
+Suppose that $f$ is closed, and take any $A\subseteq X$.
+
+First, note that $f(A)\subseteq f(\overline{A})$.  We can prove this by
+taking any $x\in f(A)$; then there is some $a\in A$ such that $x=f(a)$.
+If $a\in A$, then $a\in\overline{A}$, since
+$A\subseteq\overline{A}$.  If $a\in\overline{A}$ then $x\in f(\overline{A})$,
+and thus $f(A)\subseteq f(\overline{A})$.
+
+Therefore, by the Lemma, $\overline{f(A)}\subseteq\overline{f(\overline{A})}$.
+Since $f$ is a closed function and $\overline{A}$ is closed,
+$f(\overline{A})$ is closed and so
+$f(\overline{A})=\overline{f(\overline{A})}$.  Hence
+$\overline{f(A)}\subseteq f({\overline{A})}$ as desired.
+
+Now conversely suppose $f(\overline{A})\supseteq\overline{f(A)}$ for all
+$A\subseteq X$.  Let $U$ be any closed set in $X$.  To show $f$ is closed
+we must show $f(U)$ is closed, or that $\overline{f(U)}=f(U)$.
+
+$f(U)\subseteq \overline{f(U)}$ we have from the Lemma.  And
+$\overline{f(U)}\subseteq f(\overline{U})=f(U)$ by assumption, hence $f$
+is closed.
+
+\textbf{part (c)}\\
+Suppose that $f$ is continuous, and take any $B\subseteq Y$.  Then,
+\begin{align*}
+\Int B &\subseteq B && \text{Lemma (iv)}\\
+f^{-1}(\Int B) &\subseteq f^{-1}(B) &&\text{Lemma (i)} \\
+\Int f^{-1}(\Int B) &\subseteq \Int f^{-1}(B) &&\text{Lemma (iii)} \\
+f^{-1}(\Int B) &\subseteq \Int f^{-1}(B). &&\text{$f$ continuous, $\Int B$ open, Lemma (v)}
+\end{align*}
+
+Now conversely assume that $f^{-1}(\Int B)\subseteq\Int f^{-1}(B)$
+for any $B \subseteq Y$.  Let $U$ be an open set in $Y$.
+
+Since $U$
+is open, from the Lemma we know $\Int U=U$.
+Then $f^{-1}(U)=f^{-1}(\Int U)$ and by assumption
+$f^{-1}(\Int U) \subseteq \Int f^{-1}(U)$, hence
+$f^{-1}(U)\subseteq\Int f^{-1}(U)$.
+  But, we also have
+from the Lemma that $A\subseteq\Int A$ for any $A$, so
+$\Int f^{-1}(U) \subseteq f^{-1}(U)$.
+Therefore $\Int f^{-1}(U)=f^{-1}(U)$, which from the Lemma
+means that $f^{-1}(U)$ is open and hence $f$ is continuous.
+
+\textbf{part (d)}\\
+Suppose $f$ is open, and let $B$ be any set in $Y$.  Then,
+\begin{align*}
+\Int f^{-1}(B) &\subseteq f^{-1}(B) &&\text{Lemma (iv)} \\
+f(\Int f^{-1}(B)) &\subseteq B &&\text{Lemma (vi)}\\
+\Int f(\Int f^{-1}(B)) &\subseteq \Int B &&\text{Lemma (iii)} \\
+f(\Int f^{-1}(B)) &\subseteq \Int B &&\text{$f$ open, $\Int f^{-1}(B)$ open, Lemma (v)} \\
+\Int f^{-1}(B) &\subseteq f^{-1}(\Int B) &&\text{Lemma (i)}
+\end{align*}
+
+Now conversely assume that for all $B\subseteq Y$ we have
+$f^{-1}(\Int B)\supseteq\Int f^{-1}(B)$, and suppose $U$ is
+open in $X$.
+
+To show $f$ is open, consider $f(U)$.  We intend to show that
+$\Int f(U)=f(U)$.  We have $\Int f(U) \subseteq f(U)$ from
+the Lemma part (iv).  To show the reverse containment, start from
+the assumption, i.e., that for any $B\subseteq Y$ we have
+$\Int f^{-1}(B)\subseteq f^{-1}(\Int B).$
+Taking $B=f(U)$, or $U=f^{-1}(B)$, this is
+$$ \Int U \subseteq f^{-1}(\Int f(U)). $$
+Since $U$ is open, $\Int U=U$, and if we apply Lemma (i), we
+obtain the desired containment: $f(U) \subseteq \Int f(U)$.
+
+Hence $f(U)=\Int f(U)$ and thus $f(U)$ must be open, so because $U$
+was arbitrary, $f$ is open.
+
+\hrulefill
+\begin{exercise}{6. Lee, Problem 2-10}
+Suppose $f,g:X\ra Y$ are continuous maps and $Y$ is Hausdorff.  Show that the set
+$\{x\in X:f(x)=g(x)\}$ is closed in $X$.  Give a counterexample if $Y$ is not
+Hausdorff.
+\end{exercise}
+\solution
+Let $S=\{x\in X:f(x)=g(x)\}$.  Then $S^c =\{x\in X:f(x)\ne g(x)\}$.
+We will show that $S^c$ is open.
+
+Take any $x\in S^c$.  Since $f(x)\ne g(x)$ in $Y$, and $Y$ is Hausdorff,
+we can find open sets $W_1$ and $W_2$ in $Y$ with $f(x)\in W_1$ and
+$g(x)\in W_2$ such that $W_1 \cap W_2=\emptyset$.  Now let $U_1=f^{-1}(W_1)$
+and $U_2=g^{-1}(W_2)$. $W_1$ and $W_2$ are open, and $f$ and $g$ are
+continuous, therefore $U_1$ and $U_2$ are open sets in $X$.
+
+Now let $U=U_1\cap U_2$.  Then $U$ is open and note that $x\in U$.
+Now choose any $\hat x\in U$.  Then, $\hat x\in U_1\implies f(\hat x)\in W_1$
+and $\hat x\in U_2\implies g(\hat x)\in W_2$.  Because
+$W_1\cap W_2=\emptyset$, we must have that $f(\hat x)\ne g(\hat x)$,
+which means $\hat x\in S^c$. Since $\hat x$ was arbitrary in $U$,
+$U\subseteq S^c$; thus we have found an open neighborhood of
+$x$ in $S^c$, which shows that $S^c$ is open and hence that $S$ is closed.
+
+We can build a counterexample by taking $Y=\Reals$ with the
+excluded point topology from Homework 1 with $p=0$, i.e.,
+$\tau_E = \{ U \subseteq \Reals : U=\Reals \text{ or } 0\not\in U\}$,
+and intersecting this with the usual metric topology on $\Reals$,
+$\tau_\Reals$.  This new topology $\tau=\tau_E\cap\tau_\Reals$ is
+a topology, we showed that an intersection of topologies is again
+a topology.
+
+$\tau$ is not Hausdorff, since it is not possible to find an open set
+separating $0$ from any other point in $\Reals$, as the only open
+set containing $0$ is $\Reals$ itself.
+
+Take $X=\Reals$ with the usual Euclidean topology, and define
+$f(x) = x$ and:
+$$ g(x) =
+\begin{cases}
+x-1 &\text{ if } x\le 0\\
+x   &\text{ if } x>0
+\end{cases} $$
+Then $f$ and $g$ are both continuous, as any open set
+in $(Y,\tau)$ will be open in $X$.
+Moreover they agree in $Y$
+when $x\in(0,\infty)$ in $X$, which is not a closed set.
+
+\hrulefill
+\begin{exercise}{7. Lee, Problem 2-15}
+Let $X$ and $Y$ be topological spaces.
+\begin{itemize}
+\item[(a)] Suppose $f:X\ra Y$ is continuous and $p_n\ra p$ in $X$.  Show that
+$f(p_n)\ra f(p)$ in $Y$.
+\item[(b)] Prove that if $X$ is first countable, the converse is true: if $f:X\ra Y$
+is a map such that $p_n\ra p$ in $X$ implies $f(p_n)\ra f(p)$ in $Y$, then $f$ is
+continuous.
+\end{itemize}
+\end{exercise}
+\solution
+\textbf{part (a)}\\
+Let $U$ be an open set in $Y$ containing $f(p)$.  Because $f$ is continuous,
+$f^{-1}(U)$ is an open set in $X$, and it contains $p$.  Then, since $p_n$
+converges to $p$, there exists an $N\in\Nats$ such that if $n\ge N$,
+$p_n\in f^{-1}(U)$, which means $f(p_n)\in U$.  Hence $f(p_n)$ converges to $f(p)$.
+
+\textbf{part (b)}\\
+Suppose that $f$ is not continuous.  Then we can find an open set $U$ in $Y$
+such that $f^{-1}(U)$ is not open in $X$.  So, there is a point
+$p\in f^{-1}(U)$ such that any set containing $p$ will contain points
+not in $f^{-1}(U)$.
+
+Since $X$ is first countable, for any set $V$ containing $p$ there is a countable
+collection $\{B_n\}_{n=1}^{\infty}$ of nested neighborhoods of $p$, inside $V$.
+Let $p_n$ be any point not in $f^{-1}(U)$ that is in $B_n$.  Thus $p_n$ is
+a sequence that converges to $p$, because if $n>N$, $B_n\subset B_N$.
+Note that by construction $p_n\not\in f^{-1}(U)$ for all $n$, but $p\in f^{-1}(U)$.
+
+Since $p_n\ra p$ in $X$, by assumption we will also have $f(p_n)\ra f(p)$.
+But each $p_n\not\in f^{-1}(U)$, so $f(p_n)\not\in U$ for all $n$.  This
+is a contradiction, we should able to find $N$ for which $n>N$ results
+in $f(p_n)\in U$ since $U$ is open and $f(p_n)$ converges to $p\in U$.
+
+Hence, $f$ must be continuous.
+
+\hrulefill
+\begin{exercise}{8}
+Consider the map $\exp : [0,1)\rightarrow S^1$ given by $\exp(x)=e^{2\pi ix}$.
+This map is continuous (for example, it is sequentially continuous as a
+map between metric spaces).  From familiar properties of trigonometric
+functions it is a bijection (though it would not be if we expanded the
+range to $[0,1]$ and it would not be if we shrunk the range!).  Your job
+is to show that its inverse function is not continuous.  Hint: Find a
+sequence $\{x_n\}$ in $S^1$ that converges to some point $x$, and yet
+$f^{-1}(x_n)\not\ra f^{-1}(x)$.
+\end{exercise}
+\solution
+Let
+$$ x_n = e^{2\pi i\left(1-\frac{1}{n}\right)}. $$
+Then, $f^{-1}(x_n) = 1-1/n$ and thus $f^{-1}(x_n)$ converges to 1.  1 is not
+in the domain $[0,1)$, so one might say it doesn't converge.
+
+In $S^1$, $x_n$ converges to
+$x=e^{2\pi i}$ which (in $\RR^2$) is $(x,y)=(1,0)$, and so $f^{-1}(x) = 0$.
+
+So, there exists a point for which $x_n\ra x$ but $f^{-1}(x_n)\not\ra f^{-1}(x)$
+and hence $f^{-1}$ is not continuous.
+\end{document}

@@ -1,0 +1,409 @@
+\documentclass{homework651}
+
+\usepackage[all,cmtip]{xy}
+
+% The following commands set up the material that appears
+% in the header.
+\doclabel{Math 651: Homework 5}
+\docauthor{Kirk Hogenson}
+\docdate{18 February 2015}
+
+\input{hwextras.tex}
+\newcommand\nextprob{\newpage}
+\newcommand\ra{\rightarrow}
+\newcommand\calB{\mathcal{B}}
+
+\begin{document}
+\begin{aproblems}
+
+\hproblem Prove the following variation of Exercise 3.32.
+\begin{subproblems}
+\item  The space $(X_1\times X_2)\times X_3$ is homeomorphic to
+$X_1\times X_2 \times X_3$.  You may not use the words ``open'' or ``closed''
+at any point in your proof.  (\emph{Hint}: Use the Characteristic Property, Luke!)
+
+\item A projection map from an arbitrary product space is an open map.
+
+\item An arbitrary product of Hausdorff spaces is Hausdorff.
+
+\item A countable product of second countable spaces is second countable.
+
+\end{subproblems}
+
+\subsol
+Let $Y = (X_1\times X_2)\times X_3$ and $Z = X_1\times X_2 \times X_3$
+and define $f:Y\ra Z$ as $f((x_1,x_2),x_3)=(x_1,x_2,x_3)$.  Evidently
+$f$ is a bijection.
+
+Consider the diagrams:
+
+\centerline{
+\xymatrix{
+Y \ar[r]^f \ar[dr]_{\pi_{12}\circ f} & Z \ar[d]^{\pi_{12}} \\
+ & X_1\times X_2 }
+\qquad
+\xymatrix{
+Y \ar[r]^f \ar[dr]_{\pi_3\circ f} & Z \ar[d]^{\pi_3} \\
+ & X_3 }
+}
+
+In each, we see that the diagonal map is merely the projection function
+from $Y$ onto its first and second components, and so is continuous.  Hence
+by the characteristic property of the product topology, $f$ must be continuous
+as well.
+
+Now $f^{-1}:Y\ra Z$ is $f^{-1}(x_1,x_2,x_3)=((x_1,x_2),x_3)$, and
+we have similar diagrams:
+
+\centerline{
+\xymatrix{
+Z \ar[r]^{f^{-1}} \ar[dr]_{\pi_{1}\circ f^{-1}} & Y \ar[d]^{\pi_{1}} \\
+ & X_1\times X_2 }
+\qquad
+\xymatrix{
+Z \ar[r]^{f^{-1}} \ar[dr]_{\pi_3\circ f^{-1}} & Y \ar[d]^{\pi_3} \\
+ & X_3 }
+}
+
+Again we have that the diagonal maps are projections of $Z$ onto its
+first two components, and its third component.  Since this is continuous,
+$f^{-1}$ is continuous and hence $f$ is a homeomorphism.  Therefore
+$Y$ and $Z$ are homeomorphic.
+
+\vspace{.3in}
+
+\subsol
+Let $\pi: \prod_{\alpha\in I} X_\alpha \ra X_0$ be a projection map from
+the arbitrary product space $\prod_{\alpha\in I} X_\alpha$, where $I$ is an index
+collection, to $X_0\in\{X_\alpha\}_{\alpha\in I}$.
+
+Let $U$ be a basic open set in $\prod_{\alpha\in I} X_\alpha$,
+so $U=\prod_{\alpha\in I} U_\alpha$,
+where $U_\alpha$ is open in $X_\alpha$.  Then, $\pi(U)=U_0$ where $U_0$
+is open in $X_0$.  Thus $\pi$ is an open map.
+
+\newpage
+
+\subsol
+Let $\prod_{\alpha\in I} X_\alpha$ be an arbitrary product space,
+where $X_\alpha$ is
+Hausdorff for each $\alpha\in I$.  Let $x,y\in\prod_{\alpha\in I} X_\alpha$
+with $x\ne y$.
+Then for some $\beta\in I$, we will have $x_\beta\ne y_\beta$ where
+$x_\beta,y_\beta\in X_\beta\in\{X_\alpha\}_{\alpha\in I}$.
+
+The topological space $X_\beta$ is Hausdorff so there exist sets $U_1$ and
+$U_2$ open in $X_\beta$ with $U_1\cap U_2=\emptyset$.
+
+Define $V_1=\prod_{\alpha\in I\setminus\beta} X_\alpha \times U_1$, and
+$V_2=\prod_{\alpha\in I\setminus\beta} X_\alpha \times U_2$.  These are open sets
+in $\prod_{\alpha\in I} X_\alpha$ and $V_1\cap V_2=\emptyset$.  Further,
+$x\in V_1$ and $y\in V_2$, so $\prod_{\alpha\in X_\alpha}$ is Hausdorff.
+
+\vspace{.3in}
+
+\subsol
+Let $X=\prod_{n=1}^{\infty} X_n$ be a product of countably many spaces
+$X_n$, where each $X_n$ is second countable.  Hence for each $X_n$ we have
+a countable basis $\calB_n$.
+
+Define $\calB=\{\prod_{n=1}^{\infty} B_n : B_n\in\calB_n \text{ for each } n\}$.
+
+Observe that $\calB$ is countable, and that each $B\in\calB$ is open in $X$
+because each $B_n$ is open in $X_n$, and that $\calB$ covers $X$.
+Further, notice that
+$$ B=\prod_{n=1}^{\infty} B_n \cap \prod_{n=1}^{\infty} \hat B_n =
+\prod_{n=1}^{\infty} B_n\cap \hat B_n. $$
+Each $B_n\cap\hat B_n\in\calB_n$, so $B\in\calB$, thus $\calB$ is
+closed under finite intersection.  Hence $\calB$ is a basis for $X$.  Since
+it is countable, $X$ is second countable.
+
+\nextprob
+\hproblem Problem 3-6\\
+Let $X$ be a topological space.  The \emph{diagonal} of $X\times X$ is the subset
+$\Delta=\{(x,x):x\in X\}\subseteq X\times X$.  Show that $X$ is Hausdorff
+if and only if $\Delta$ is closed in $X\times X$.
+
+\solution
+Suppose $X$ is Hausdorff.  Consider
+$\Delta^c=\{(x,y):x,y\in X \text{ and } x\ne y\}\subseteq X\times X$.
+Let $(x,y)\in\Delta^c$, where $x,y\in X$.  Therefore $x\ne y$.
+Because $X$ is Hausdorff, there exist open sets $U_x$ and $U_y$ in $X$
+with $x\in U_x$ and $y\in U_y$ and $U_x\cap U_y=\emptyset$.  Now define
+$U_p\subseteq X\times X$ as
+$U_p=U_x\times U_y=\{(\hat x,\hat y):\hat x\in U_x\text{ and }
+\hat y\in U_y\}$.
+
+Note that $U_p$ is open in $X\times X$
+since $X\times X$ has the product topology.
+Now, take any $(\hat x,\hat y)\in U_p$,
+and observe that $\hat x\ne\hat y$
+because $\hat x\in U_x\subseteq X$ and $\hat y\in U_y\subseteq X$,
+and $U_x\cap U_y=\emptyset$.
+Hence $(\hat x,\hat y)\in\Delta^c$, which means $U_p\subseteq\Delta^c$.
+
+Therefore $U_p$ is an open neighborhood of $(x,y)$ in $\Delta^c$ with
+$U_p\subseteq\Delta^c$, so $\Delta^c$ is open in $X\times X$
+and hence $\Delta$ is closed in $X\times X$.
+
+Conversely, suppose $\Delta$ is closed in $X\times X$, and take any $x,y\in X$
+with $x\ne y$.  Thus $(x,y)\in\Delta^c$. Since $\Delta^c$ is open in
+$X\times X$, we can find a basic open set $B$ with $(x,y)\in B$
+such that $B\subseteq\Delta^c$.
+
+Every basic open set in the product topology can be expressed as
+$B=U\times V$ with $U$ and $V$ open in $X$,
+so let $U$ and $V$ be
+such sets. Then $x\in U$ and $y\in V$, and since
+$U\times V\cap\Delta=\emptyset$ we must have $x'\ne y'$ for
+any $(x',y')\in U\times V$, which implies that
+$U\cap V=\emptyset$;
+hence $X$ is Hausdorff.
+
+\nextprob
+\hproblem Problem 3-7\\
+Show that the space $X$ of Problem 2-22 is homeomorphic to
+$\mathbb{R}_d\times\mathbb{R}$, where $\mathbb{R}_d$ is the set
+$\mathbb{R}$ with the discrete topology.
+
+Problem 2-22 defined $X$ as follows: for any fixed $a,b,c\in\Reals$,
+let $I_{abc}$ be the subset of $\Reals^2$ defined by
+$I_{abc} = \{(c,y):a<y<b\}$.  Let $\mathcal{B}$ be the collection of
+all nonempty subsets of $\Reals^2$ of the form $I_{abc}$ for
+$a,b,c\in\Reals$.  Let $X=\Reals^2$ as a set, but with the topology
+generated by $\mathcal{B}$.
+
+\textbf{Lemma:} \textit{The set $\mathcal{B}$ is a basis for a topology.}
+(This is part (a) of Problem 2-22.)\\
+Take any point $(x,y)\in\Reals^2$.  Define $a=y-1$ and $b=y+1$, then
+$(x,y)\in I_{abx}$.  Thus $\mathcal{B}$ covers $\Reals^2$.
+
+To show that $\mathcal{B}$ satisfies the refinement property, we show it
+is closed under nonempty intersection.  Take
+$B_1=I_{abc}$ and $B_2=I_{def}$.  For a nonempty intersection we must
+have $c=f$ and that the open intervals $(a,b)$ and $(d,e)$ overlap in $\Reals$.
+Then
+$B_1\cap B_2=I_{abc}\cap I_{def}=
+  \{(c,y):\max(a,d)<y<\min(b,e)\}\in\mathcal{B}$.\hfill$\Box$
+
+\solution
+Define $f:X\rightarrow \Reals_d\times\Reals$ as $(x,y)\rightarrow(x,y)$.
+I.e., $f$ is the identity map.  Observe that $f$ is a bijection.
+
+Let $\mathcal{B}_d = \{\{x\}:x\in\Reals\}$.  We showed in class that this
+was a basis for the discrete topology on $\Reals$.  Let $\mathcal{B}_i$
+be the set of open intervals in $\Reals$, which is a basis for $\Reals$.
+Hence sets in $\Reals_d\times\Reals$ of the form
+$B_d\times B_i$ with $B_d\in\mathcal{B}_d$ and $B_i\in\mathcal{B}_i$,
+form a basis for the product topology on $\Reals_d\times\Reals$.
+
+Let $U=B_d\times B_i=\{c\}\times(a,b)$ be a basic open set in
+$\Reals_d\times\Reals$.  Then $f^{-1}(U)=I_{abc}$, which is open in $X$,
+hence $f$ is continuous.
+
+Now consider $f^{-1}:\Reals_d\times\Reals\rightarrow X$.  Let $U$ be a basic
+open set in $X$, i.e., $U=I_{abc}$.  The preimage of $U$ under $f^{-1}$ is
+$\{c\}\times(a,b)$ which is open in $\Reals_d\times\Reals$, hence $f^{-1}$
+is continuous.
+
+Thus $f$ is a homeomorphism, and therefore $X$ is homeomorphic to $\Reals_d\times\Reals$.
+
+\nextprob
+\hproblem Problem 3-8\\
+Let $X$ denote the Cartesian product of countably infinitely many copies of
+$\mathbb{R}$ (which is just the set of all infinite sequences of real numbers),
+endowed with the box topology.  Define a map $f:\mathbb{R}\rightarrow X$
+by $f(x)=(x,x,x,...)$.  Show that $f$ is not continuous, even though each of
+its component functions is.
+
+\solution
+Consider the set $U_n\subseteq \RR$ defined by $U_n=(-1/n,1/n)$ for $n\in\Nats$.
+Observe that $U_n$ is open in $\RR$.
+Also, note that $0\in U_n$ for all values of $n$.
+
+But if $x>0$, then there is an $n\in\Nats$ for which $1/n<x$, hence
+$x\not\in U_n$ for some $n\in\Nats$.  Similarly, if $x<0$, there is
+an $n\in\Nats$ for which $x<-1/n$, so $x\not\in U_n$ for some $n\in\Nats$.
+So, the only $x\in\RR$ with $x\in U_n$ for all $n\in\Nats$ is $x=0$.
+
+Define $U=\prod_{n=1}^{\infty} U_n$.  Then under the box topology, $U$ is open
+in $X$.  But we just saw that $f^{-1}(U) = \{0\}$ which is closed in $\RR$.
+
+Hence $f$ is not continuous.
+
+\nextprob
+\hproblem Problem 3-9\\
+Let $X$ be as in the preceding problem.  Let $X^+\subseteq X$ be the subset
+consisting of sequences of strictly positive real numbers, and let $z$ denote
+the zero sequence, that is, the one whose terms are $z_i=0$ for all $i$.
+Show that $z$ is in the closure of $X^+$, but there is no sequence of elements
+of $X^+$ converging to $z$.  Then use the sequence lemma to conclude that $X$
+is not first countable, and thus not metrizable.
+
+(A part of the)\\
+\textbf{Sequence Lemma}:
+\textit{If $X$ is a first countable space, then for any nonempty $A\subseteq X$, and
+$x\in\overline{A}$, $x$ is a limit of a sequence of
+points in $A$.}\\
+Let $U$ be an open set containing $x$.
+Since $X$ is first countable, there is a countable
+collection $\{B_n\}_{n=1}^{\infty}$ of nested neighborhoods of $x$, inside $U$.
+Each $B_n$ is an open set containing $x$, therefore it will intersect $A$
+because $x\in\overline{A}$.
+Let $x_n$ be any point that is in $B_n\cap A$.  Thus $x_n$ is
+a sequence that converges to $x$, because if $n>N$, then $B_n\subseteq B_N$.
+Moreover, $x_n\in A$ for any $n$, as required.
+\hfill$\Box$
+
+\solution
+Let $z\in U$ where $U$ is a basic open set in $X$. Thus $U$ can be
+expressed as $U=\prod_{n=1}^{\infty} U_n$ where each $U_n$ is an open
+subset of $\Reals$.  Since $z\in U$ we know $0\in U_n\subseteq\Reals$
+for every $n$.
+
+Let $\calB$ be the basis for $\Reals$ where every $B\in\calB$ in an
+open interval.
+
+Each $U_n$ is open in $\Reals$ so there exists a basic open set $B_n\in\calB$
+where $0\in B_n\subseteq U_n$.  Since $B_n=(a_n,b_n)$, we must have
+$0< b_n$.  So, we may choose a number $c_n$ such that $0< c_n< b_n$.
+Then $c_n\in B_n\subseteq U_n$, and moreover $c_n\in\Reals^+$.
+
+Hence $(c_1,c_2,...)\in X^+$, and thus $U$ contains points from $X^+$,
+so $z\in \overline{X^+}$.
+
+\vspace{.2in}
+
+Let $\underline{x}_k$ be any sequence in $X^+$.
+
+Define $U=\prod_{n=1}^{\infty} U_n$ where $U_n=(-x_n^{(n)}, x_n^{(n)})$.
+Here $x_k^{(m)}$ refers to the $m$-th element in $\RR$ of the $k$-th
+element in $X^+$ of the sequence $\underline{x}_k$.  Note that for each $n\in\Nats$,
+we have $0\in U_n$, thus $z\in U$.
+
+Now observe that we cannot find a $K\in\Nats$ for which
+$k\ge K$ implies $\underline{x}_k \in U$, because by construction
+$x_K^{(K)}\not\in U_K=(-x_K^{(K)},x_K^{(K)})$, which means
+$\underline{x}_k\not\in U$ for all $k$.  Hence $\underline{x}_k$
+does not converge to $z$.
+
+\vspace{.2in}
+
+Therefore, by the Sequence Lemma, $X$ must not be first countable, and therefore
+not metrizable.
+ 
+\nextprob
+\hproblem Problem 3-10\\
+Prove Theorem 3.41 (the characteristic property of disjoint union spaces): Suppose
+that $(X_\alpha)_{\alpha\in A}$ is an indexed family of topological spaces, and
+$Y$ is any topological space.  A map
+$f:\coprod_{\alpha\in A} X_\alpha \rightarrow Y$ is continuous if and only if
+its restriction to each $X_\alpha$ is continuous.  The disjoint union topology
+is the unique topology on $\coprod_{\alpha\in A}X_\alpha$ with this property.
+
+\solution
+
+\centerline{\xymatrix{
+\coprod_{\alpha\in A} X_\alpha \ar[dr]^f & X_\alpha \ar[l]_-{i_\alpha} \ar[d]^{f_\alpha} \\
+ & Y}}
+
+Let $f_\alpha=f|_{X_\alpha}$, and suppose $f_\alpha$ is continuous. The projection
+map $\pi_\alpha$ is continuous, so $f=f_\alpha\circ\pi_\alpha$ is a composition
+of continuous functions and is thus continuous.
+
+Conversely, suppose $f$ is continuous and let $U$ be an open set in $Y$.
+Then $f^{-1}(U)$ is open in $\coprod_{\alpha\in A} X_\alpha$.  By definition,
+if a set is open in the disjoint union topology, then when the set is intersected
+with each $X_\alpha$ the result is open in $X_\alpha$.  Hence
+$f^{-1}(U)\cap X_\alpha$ is open in $X_\alpha$ for any $\alpha\in A$.
+
+But $f^{-1}(U)\cap X_\alpha = f_\alpha^{-1}(U)$, so $f_\alpha^{-1}(U)$ is
+open in $X_\alpha$ and hence $f_\alpha$ is continuous.
+
+\vspace{.2in}
+
+Next, suppose we have two topologies $\tau_1$ and $\tau_2$ on
+$\coprod_{\alpha\in A} X_\alpha$ both satisfying the characteristic property.
+Let $X_i$ be  $\coprod_{\alpha\in A} X_\alpha$ with the topology $\tau_i$,
+for $i=1,2$, and let $id^{12}$ be the map identity map between $X_1$ and $X_2$,
+and consider the diagram:
+
+\centerline{\xymatrix{
+X_1 \ar[dr]^{id^{12}} & X_\alpha \ar[l]_-{i_\alpha} \ar[d]^{id^{12}_\alpha} \\
+ & X_2}}
+
+The map $id^{12}_\alpha$ continuous by definition: if a set $U$ is open in $X_2$,
+then $U\cap X_\alpha$ is open in $X_\alpha$.
+
+So $id^{12}$ is continuous
+by the characteristic property, which is satisfied by assumption.
+Similarly, the identity map $id^{21}$ between $X_2$ and $X_1$ is continuous
+as well.  Since $id^{12}$ is a bijection and $id^{12}=(id^{21})^{-1}$, $X_1$
+and $X_2$ are homeomorphic and so $\tau_1=\tau_2$.
+
+Thus there can be at most one disjoint union topology satisfying the characteristic
+property.  We know there is at least one, so it is unique.
+
+\nextprob
+\hproblem Problem 3-12 a-c
+Suppose $X$ is a topological space and $(X_{\alpha})_{\alpha\in A}$ is an
+indexed family of topological spaces.
+\begin{subproblems}
+\item For any subset $S\subseteq X$, show that the subspace topology on $S$ is
+the coarsest topology for which $\iota_S:S\hookrightarrow X$ is continuous.
+
+\item Show that the product topology is the coarsest topology on
+$\prod_{\alpha\in A}X_\alpha$ for which every canonical projection
+$\pi_\alpha:\prod_{\alpha\in A}X_\alpha\rightarrow X_\alpha$ is continuous.
+		
+\item Show that the disjoint union topology is the finest topology on
+$\coprod_\alpha X_\alpha$ for which every canonical injection
+$\iota_\alpha:X_\alpha\rightarrow\coprod_\alpha X_\alpha$ is continuous.
+\end{subproblems}
+
+\subsol
+Let $\tau_S$ be the subspace topology on $S$.  For the inclusion map $\iota_S$ to
+be continuous, we must have that $\iota_S^{-1}(U)$ is open in $S$ whenever
+$U$ is open in $X$.  But $\iota_S^{-1}(U)=U\cap S$, so the requirement is
+that $U\cap S$ is open in $S$ whenever $U$ is open in $X$.
+
+So, if $\tau$ is any topology on $S$ for which $\iota_S$ is continuous we must
+have $U\cap S\in\tau$.  Since $U\cap S\in\tau_S$, we see that
+$\tau_S\subseteq\tau$, i.e., $\tau_S$ is coarser than $\tau$.
+
+Hence $\tau_S$ is the coarsest.
+
+\subsol
+Let $X=\prod_{\alpha\in A}X_\alpha$, and let $\tau_P$ be
+the product topology on $X$.
+
+For the projection map $\pi_\alpha$ to be continuous, we must have
+that $V=\pi_\alpha^{-1}(U)$ is open in $X$ whenever $U$ is open in
+$X_\alpha$.  Observe that
+$V=\prod_{\beta\in X\setminus\alpha} X_\beta\times U$
+which is open in $X$ under the product topology. Thus any topology $\tau$ for
+which $\pi_\alpha$ is continuous must contain $V\in\tau_P$, so
+$\tau_P\subseteq\tau$, i.e., $\tau_P$ is coarser than $\tau$.
+
+Hence $\tau_P$ is coarsest.
+
+\subsol
+Let $X=\coprod_\alpha X_\alpha$, and
+let $\tau_D$ be the disjoint union topology on $X$.  For the
+canonical injection map $\iota_\alpha$ to be continuous, we require
+$\iota^{-1}_\alpha(U)$ be open in $X_\alpha$ if $U$ is open in $X$.
+
+But $\iota^{-1}_\alpha(U)=U\cap X_\alpha$, and this set being open
+in $X_\alpha$
+is precisely the condition on $U$ in $X$ for membership in $\tau_D$.
+Hence if a
+topology $\tau$ on $X$ contains a set $U\not\in\tau_D$, the corresponding
+set in $X_\alpha$ will
+not be open in $X_\alpha$ and then $\iota$ would not be continuous.
+Thus for $\tau$ to result in continuous $\iota$ we must have that
+$\tau\subseteq\tau_D$, i.e., $\tau_D$ is finer than $\tau$.
+
+Hence $\tau_D$ is finest.
+
+\end{aproblems}
+\end{document}
