@@ -113,19 +113,19 @@ $x\in V_1$ and $y\in V_2$, so $\prod_{\alpha\in X_\alpha}$ is Hausdorff.
 \subsol
 Let $X=\prod_{n=1}^{\infty} X_n$ be a product of countably many spaces
 $X_n$, where each $X_n$ is second countable.  Hence for each $X_n$ we have
-a countable basis $\calB_n$.
+a countable basis $\calB_n=\{B_k\}_{k=1}^{\infty}$.
 
-Define $\calS=\{\pi_n^{-1}(B_n):B_n\in\calB_n \text{ and } n\in\Nats\}$,
+Define $\calS=\{\pi_n^{-1}(B_k):B_k\in\calB_n \text{ and } k,n\in\Nats\}$,
 where $\pi_n:X\ra X_n$ is the projection function onto the $n$-th component.
 Note that $\calS$ is countable.
 
-Now take any $x=(x_1,x_2,...)\in X$.  Then $x_1\in B_1$
-for some $B_1\in\calB_1$, and $\pi_1^{-1}(B_1)=B_1\times\prod_{n=2}^{\infty} X_n$,
-so $x\in \pi_1^{-1}(B_1)\in\calS$.  Hence $\calS$ covers $X$ and so it
+Now take any $x=(x_1,x_2,...)\in X$.  Then $x_1\in B_k$
+for some $B_k\in\calB_1$.  So, $\pi_1^{-1}(B_k)=B_k\times\prod_{n=2}^{\infty} X_n$,
+so $x\in \pi_1^{-1}(B_k)\in\calS$.  Hence $\calS$ covers $X$ and so it
 is a sub-basis for $X$.
 
-We can then form a basis for $X$ from $\calS$ as:
-$$ \calB = \left\{ \bigcap_{i=1}^{N} S_n : S_n\in\calS\right\}.$$
+We can then form a basis for $X$ from $\calS$ as follows:
+$$ \calB = \left\{ \bigcap_{k=1}^{N} S_k : S_k\in\calS\right\}.$$
 Observe that $\calB$ is countable, as it is composed of all finite intersections
 of elements of the countable set $\calS$.
 
