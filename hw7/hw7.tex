@@ -12,6 +12,7 @@
 \newcommand{\PP}{\mathbb{P}}
 \newcommand{\ra}{\rightarrow}
 \newcommand{\calB}{\mathcal{B}}
+\newcommand{\NN}{\mathbb{N}}
 
 \begin{document}
 \begin{aproblems}
@@ -206,6 +207,64 @@ to the space $C$ of Problem 4-4(b), and thus is Hausdorff and second countable
 but not locally Euclidean.
 
 \solution
+In this problem we will work in cylindrical coordinates.  Then a point
+$(r,\theta,z)\in\RR^3$, where $r>0$, $\theta\in[0,2\pi)$,
+and $z\in\RR$, is in $M$ if $r=1$, and it is in $C$ if $r=|z|$.
+
+Define a function $f:M\ra C$ by $f(1,\theta,z)=(|z|,\theta,z)$. Then
+from the above the codomain of $M$ is $C$.  Also note that $f$ is
+clearly surjective, as any $(|z|,\theta,z)\in C$ is evidently mapped to
+by $(1,\theta,z)\in M$.
+
+Now consider the diagram
+
+\centerline{
+\xymatrix{
+M \ar[d]_{q} \ar[dr]^{f} &  \\
+M/A \ar@{.>}[r]_{\tilde f} & C  }}
+
+We've used $q$ to denote the quotient map from $M$ to $M/A$. The diagram will
+show that $\tilde f$ exists and is continuous, provided that we can show
+$f$ is constant on the fibers of $q$, and that $f$ is continuous.
+
+The function $f$ is continuous if its component functions are, and each
+component function here, $f_1(x,y,z)=|z|, f_2(x,y,z)=y$, and $f_3(x,y,z)=z$
+is continuous.
+
+Suppose that $q(1,\theta_1,z_1)=q(1,\theta_2,z_2)$.
+This means either (i)
+$\theta_1=\theta_2$ and $z_1=z_2$, or (ii) $z_1=z_2=0$.  In case (i), then clearly
+$f(1,\theta_1,z_1)=f(1,\theta_2,z_2)$.  In case (ii), we have
+$f(1,\theta_1,0) = (0,\theta_1,0)$ and $f(1,\theta_2,0)=(0,\theta_2,0)$, which is
+the same point in cylindrical coordinates, so $f$ is constant on the fibers of $q$.
+
+Therefore $f$ descends to the quotient and $\tilde f$ exists and is continuous.
+Further, since $f$ is surjective, $\tilde f$ is bijective.
+
+Next, consider the map $p:C\ra M$ defined by $p(r,\theta,z)=(1,\theta,z)$.
+Observe that $p$ 
+is continuous, since each component is continuous.
+
+Then in this diagram:
+
+\centerline{
+\xymatrix{
+C \ar[r]^{p} \ar[dr]_{g} & M \ar[d]^{q}  \\
+ & M/A  }}
+
+We have that the function $g$ is continuous, since $p$ is and $q$ is a quotient
+map and hence continuous.
+
+Also, we can now write:
+$$ (\tilde f\circ g)(r,\theta,z)=\tilde f(q(p(r,\theta,z)))=f(p(r,\theta,z)=
+   f(1,\theta,z)=(|z|,\theta,z). $$
+Since the original point $(r,\theta,z)$ was in $C$, it satisfied $r=|z|$, hence
+$\tilde f=g^{-1}$.  Since $\tilde f$ is bijective, we also have $\tilde f^{-1}=g$,
+which means that $\tilde f$ is continuous.
+
+Therefore $\tilde f$ is a homeomorphism, and $M/A$ is homeomorphic to $C$.
+Thus, because $C$ is Hausdorff and second countable but not locally Euclidean,
+$M/A$ is as well.
 
 \nextprob
 \hproblem Let $X$ be a topological space with components $\{C_\alpha\}$.
@@ -213,6 +272,20 @@ Show that $X$ has the disjoint union topology $\coprod C_\alpha$ if and only if
 each $C_\alpha$ is open.
 
 \solution
+Suppose $X$ has the disjoint union topology defined by $\coprod C_\alpha$,
+and choose any $x\in C_\alpha$ for some $\alpha$.
+Let $U$ be an open set in $X$ with $x\in U$.  Then
+by the disjoint union topology, $U\cap C_\alpha$ is open in $C_\alpha$,
+hence $C_\alpha$ is open.
+
+Suppose each $C_\alpha$ is open.  Observe that for any $U\subseteq X$:
+$$U=X\cap U=\left(\bigcup_{\alpha\in I} C_\alpha\right)\cap U=
+  \bigcup_{\alpha\in I} (C_\alpha \cap U).$$
+If $U$ is open in $X$, each $C_\alpha \cap U$ is also open,
+hence $U$ is an open set in the disjoint union topology $\coprod C_\alpha$.
+Conversely, if each $C_\alpha\cap U$ is open in $C_\alpha$, then $U$ is
+open in $X$.  Hence, the open sets in the topology on $X$ and the
+disjoint union topology are the same.
 
 \nextprob
 \hproblem Problem 4-9 (Just the manifold part)
@@ -275,9 +348,51 @@ The space $T$ is called the \textbf{\emph{topologist's sine curve}}.
 \end{tikzpicture}
 \end{center}
 
-\subsol
+\textbf{Lemma:} \textit{$\overline{T_+}=T=T_0 \cup T_+$}\\
+%Let $(x,y)\in T_0\cup T_+$.  If $(x,y)\in T_+$ then it is in $\overline{T_+}$.
+%If $(x,y)\in T_0$, then $x=0$ and $y\in[-1,1]$.  Let $B_r(0,y)$ be an open
+%ball centered at $(0,y)$, and pick $(x, y)$ in $B_r(0,y)$, with $x>0$.
+%Then choose
+%an $x'$ small enough so that $1/x' > 1/x$, and $y=\sin(1/x')$. This can
+%be done by selecting any $z$ for which $\sin(z)=y$, and choosing $n\in\NN$
+%so that $z+2n\pi>1/x$, and taking $x'=1/(z+2n\pi)$.
+%Then
+%$x'<x$ and $(x',y)\in T_+$, and $(x',y)\in B_r(x,y)$.  Thus
+%$B_r(x,y)\cap T_+\ne\emptyset$, showing that $T_0\cup T_+\subseteq \overline{T_+}$.
+Take any $P=(x,y)\in\RR^2$.  If $x<0$, then $B_{-x}(x,y)\cap T=\emptyset$, so
+$P\not\in\overline{T_+}$.  If $x>0$ and $y=\sin(1/x)$, then $P\in T_+$.
+If $x>0$ and $y\ne \sin(1/x)$, let $d$ be the distance from $(x,y)$ to the
+curve $y=\sin(1/x)$, and then $B_d(x,y)\cap T=\emptyset$.
+If $|y|>1$, then $B_r(x,y)\cap T=\emptyset$ if we take
+$r=(|y|-1)/2$.  The only points in $\RR^2$ left are in $T_0$.  We've just
+shown that every point in $\RR^2$ is not in $\overline{T_+}$, or it is
+in $T_0\cup T_+$, hence $\overline{T_+}=T$.
 
 \subsol
+Observe that $T_+$ is connected, since it is the image of a continuous
+function of a connected set, $(0,2\pi]$.  Hence $\overline{T_+}$ is
+connected. From the Lemma, $\overline{T_+}=T$ so $T$ is connected.
+
+Suppose $T$ is path connected. Let $a=(0,0)$ and $b=(2/\pi,1)$, and
+choose a path function $\gamma:[0,1]\ra T$,
+with $\gamma(0)=a$ and $\gamma(1)=b$.  Let $B_r(a)$ be a ball of
+radius $r=1/2$ around $a$.
+Since $\gamma$ is continuous, $\gamma(t)$ must eventually be in $B_r(a)$,
+that is, for some $t_0>0$ we will have $\gamma(t)\in B_r(a)$ if $t<t_0$.
+Choose $t_1<t_0$, and let $(x,y)=\gamma(t_1)$.  Then for any $x'<x$, we
+must have $(x',\sin(1/x'))\in B_r(a)$.  But, there
+are infinitely many points less than $x$ for which $\sin(1/x)=1$.  Hence
+$T$ is not path connected.
+
+Further, $T$ is not locally connected, 
+
+\subsol
+Since $T$ is connected, it has only one connected component, $T$ itself.
+
+$T_0$ is path connected, it is a closed interval in $\RR$ embedded in $\RR^2$.
+$T_+$ is path connected, it is the image under a continuous function of a
+path connected set.  But $T$ is not path connected, hence it has 2 path
+components, $T_0$ and $T_+$.
 
 \end{aproblems}
 \end{document}
